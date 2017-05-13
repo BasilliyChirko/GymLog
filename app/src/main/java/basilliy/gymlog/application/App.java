@@ -56,7 +56,7 @@ public class App extends Application {
 
     private RealmConfiguration getRealmConfiguration() {
         return new RealmConfiguration.Builder()
-                .name("main_db")
+                .name(Config.DATABASE_NAME)
                 .schemaVersion(Config.DATABASE_VERSION)
                 .build();
     }
