@@ -3,17 +3,10 @@ package basilliy.gymlog.utils;
 import android.util.Log;
 
 import basilliy.gymlog.application.App;
-import basilliy.gymlog.domain.repository.Repository;
-import basilliy.gymlog.domain.entity.Measure;
 import basilliy.gymlog.domain.entity.Program;
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public final class D {
-
-    public final class constant {
-        public static final int DATABASE_VERSION = 8;
-    }
 
     public static final String TAG = "GymLog";
 

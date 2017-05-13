@@ -7,6 +7,7 @@ import basilliy.gymlog.domain.entity.ExerciseStore;
 import basilliy.gymlog.domain.entity.Measure;
 import basilliy.gymlog.domain.entity.Program;
 import basilliy.gymlog.domain.repository.Repository;
+import basilliy.gymlog.utils.Config;
 import basilliy.gymlog.utils.D;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -56,7 +57,7 @@ public class App extends Application {
     private RealmConfiguration getRealmConfiguration() {
         return new RealmConfiguration.Builder()
                 .name("main_db")
-                .schemaVersion(D.constant.DATABASE_VERSION)
+                .schemaVersion(Config.DATABASE_VERSION)
                 .build();
     }
 
