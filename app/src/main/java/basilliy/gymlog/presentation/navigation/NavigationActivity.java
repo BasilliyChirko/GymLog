@@ -24,12 +24,6 @@ public class NavigationActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        RealmResults<Measure> all = App.getMeasureRepository().findAll();
-        for (Measure measure : all) {
-            D.log(measure);
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
