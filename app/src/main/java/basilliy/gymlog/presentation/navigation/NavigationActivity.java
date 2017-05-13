@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import basilliy.gymlog.R;
+import basilliy.gymlog.utils.D;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
