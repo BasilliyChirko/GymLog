@@ -43,6 +43,13 @@ public class Repository<T extends RealmObject> {
         return id + 1;
     }
 
+    public void deleteAll() {
+        Realm realm = App.getRealm();
+        realm.beginTransaction();
+        App.getRealm().where(clazz).findAll().deleteAllFromRealm();
+        realm.commitTransaction();
+    }
+
 
     private long getID(T object) {
         String s = object.toString();

@@ -1,5 +1,6 @@
 package basilliy.gymlog.utils;
 
+import android.content.Context;
 import android.util.Log;
 
 import basilliy.gymlog.application.App;
@@ -15,6 +16,9 @@ public final class D {
         realm.beginTransaction();
         realm.where(Program.class).findAll().deleteAllFromRealm();
         realm.commitTransaction();
+
+        App.getContext().getSharedPreferences(Config.pref.name, Context.MODE_PRIVATE)
+                .edit().clear().apply();
     }
 
     public static void log(Object object) {

@@ -48,6 +48,7 @@ public class App extends Application {
         Realm.init(this);
 
         configureRealm();
+        LoadData.load();
     }
 
     private void configureRealm() {
@@ -56,8 +57,8 @@ public class App extends Application {
 
     private RealmConfiguration getRealmConfiguration() {
         return new RealmConfiguration.Builder()
-                .name(Config.DATABASE_NAME)
-                .schemaVersion(Config.DATABASE_VERSION)
+                .name(Config.database.name)
+                .schemaVersion(Config.database.version)
                 .build();
     }
 

@@ -14,13 +14,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import basilliy.gymlog.R;
+import basilliy.gymlog.application.App;
+import basilliy.gymlog.domain.entity.Measure;
 import basilliy.gymlog.utils.D;
+import io.realm.RealmResults;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        RealmResults<Measure> all = App.getMeasureRepository().findAll();
+        for (Measure measure : all) {
+            D.log(measure);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

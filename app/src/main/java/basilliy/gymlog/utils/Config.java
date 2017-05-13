@@ -1,6 +1,13 @@
 package basilliy.gymlog.utils;
 
-public class Config {
-    public static final String DATABASE_NAME = "main_db";
-    public static final int DATABASE_VERSION = 8;
+public interface Config {
+    interface database {
+        String name = "main_db";
+        int version = 8;
+    }
+
+    interface pref {
+        String name = "preferences";
+        String firstLoad = "first_load";
+    }
 }
