@@ -1,6 +1,7 @@
 package basilliy.gymlog.utils;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import basilliy.gymlog.application.App;
@@ -18,7 +19,7 @@ public final class D {
 
     public static final String TAG = "GymLog";
 
-    public static void test() {
+    public static void testA() {
         restoreTest();
         print(Program.class);
         print(Day.class);
@@ -37,9 +38,34 @@ public final class D {
         print(Approach.class);
     }
 
+    public static void testB() {
+        Program program = getMockProgram();
+        log(program);
+        for (Day day : program.getDayList()) log(day);
+
+        App.getProgramService().persist(program);
+        program = App.getProgramService().getSinge(program.getId());
+
+        log(program);
+        for (Day day : program.getDayList()) log(day);
+
+        String key = "sef";
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(key, program);
+        program = bundle.getParcelable(key);
+
+        log(program);
+        for (Day day : program.getDayList()) log(day);
+
+    }
+
     public static void restoreTest() {
         clearDatabase();
+        Service<Program> service = App.getProgramService();
+        service.persist(getMockProgram());
+    }
 
+    public static Program getMockProgram() {
         Program program;
         Day day;
         Exercise exercise;
@@ -53,16 +79,16 @@ public final class D {
         day.setName("Day1");
         program.getDayList().add(day);
 
-        exercise = new Exercise();
-        day.getExerciseList().add(exercise);
-
-        exercise = new Exercise();
-        day.getExerciseList().add(exercise);
-
-        approach = new Approach();
-        approach.setReps(55);
-        approach.setValue(89);
-        exercise.getApproachList().add(approach);
+//        exercise = new Exercise();
+//        day.getExerciseList().add(exercise);
+//
+//        exercise = new Exercise();
+//        day.getExerciseList().add(exercise);
+//
+//        approach = new Approach();
+//        approach.setReps(55);
+//        approach.setValue(89);
+//        exercise.getApproachList().add(approach);
 
         day = new Day();
         day.setName("Day2");
@@ -70,12 +96,9 @@ public final class D {
 
         day = new Day();
         day.setName("Day3");
-        day.setId(5);
         program.getDayList().add(day);
 
-
-        Service<Program> service = App.getProgramService();
-        service.persist(program);
+        return program;
     }
 
     public static <E extends RealmObject> void print(Class<E> eClass) {
