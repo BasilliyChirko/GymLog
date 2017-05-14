@@ -3,6 +3,7 @@ package basilliy.gymlog.presentation.navigation;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -13,15 +14,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import basilliy.gymlog.R;
 import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.entity.Measure;
+import basilliy.gymlog.presentation.programActive.ProgramActiveFragment;
 import basilliy.gymlog.utils.D;
 import io.realm.RealmResults;
 
 public class NavigationActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, RootActivity {
+
+    private BackPressedListener backPressedListener;
+
+    private FrameLayout toolbarContent;
+    private FloatingActionButton floatButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +42,12 @@ public class NavigationActivity extends AppCompatActivity
         if (bar != null)
             bar.setDisplayShowTitleEnabled(false);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        toolbarContent = (FrameLayout) findViewById(R.id.toolbarContent);
 
+        floatButton = (FloatingActionButton) findViewById(R.id.fab);
+
+
+        //Настройка панели навигации
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -59,7 +64,9 @@ public class NavigationActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (backPressedListener == null || !backPressedListener.onBackPressed()) {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -69,11 +76,56 @@ public class NavigationActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Fragment fragment = null;
 
-        // TODO: 14.05.2017 set id
+        switch (id) {
+            case R.id.nav_program_active:
+                fragment = ProgramActiveFragment.newInstance();
+                break;
+            case R.id.nav_program_list:
+                break;
+            case R.id.nav_exercise:
+                break;
+            case R.id.nav_measure:
+                break;
+            case R.id.nav_calendar:
+                break;
+            case R.id.nav_graph:
+                break;
+        }
+
+
+        if (fragment != null) {
+            if (fragment instanceof BackPressedListener) {
+                backPressedListener = (BackPressedListener) fragment;
+            }
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content, fragment)
+                    .commit();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void setToolbarContent(View view) {
+        toolbarContent.removeAllViews();
+        if (view != null)
+            toolbarContent.addView(view);
+    }
+
+    @Override
+    public FloatingActionButton getFloatButton() {
+        return floatButton;
+    }
+
+    @Override
+    public void setFloatButtonVisible(boolean b) {
+        // TODO: 14.05.2017 create animation
+        floatButton.setVisibility(b ? View.VISIBLE : View.GONE);
     }
 }
