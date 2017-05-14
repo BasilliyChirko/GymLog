@@ -3,6 +3,9 @@ package basilliy.gymlog.application;
 import android.app.Application;
 import android.content.Context;
 
+import basilliy.gymlog.domain.entity.Approach;
+import basilliy.gymlog.domain.entity.Day;
+import basilliy.gymlog.domain.entity.Exercise;
 import basilliy.gymlog.domain.entity.ExerciseStore;
 import basilliy.gymlog.domain.entity.Measure;
 import basilliy.gymlog.domain.entity.Program;
@@ -11,6 +14,7 @@ import basilliy.gymlog.utils.Config;
 import basilliy.gymlog.utils.D;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmObject;
 import io.realm.exceptions.RealmMigrationNeededException;
 
 public class App extends Application {
@@ -29,17 +33,26 @@ public class App extends Application {
         }
     }
 
-    public static Repository<Measure> getMeasureRepository() {
-        return new Repository<>(Measure.class);
+    public static <T extends RealmObject> Repository<T> getRepository(Class<T> clazz) {
+        return new Repository<>(clazz);
     }
 
-    public static Repository<Program> getProgramRepository() {
-        return new Repository<>(Program.class);
+    public static Service<Program> getProgramService() {
+        return new ProgramService();
     }
 
-    public static Repository<ExerciseStore> getExerciseStoreRepository() {
-        return new Repository<>(ExerciseStore.class);
+    public static Service<Day> getDayService() {
+        return new DayService();
     }
+
+    public static Service<Exercise> getExerciseService() {
+        return new ExerciseService();
+    }
+
+    public static Service<Approach> getApproachService() {
+        return new ApproachService();
+    }
+
 
     @Override
     public void onCreate() {

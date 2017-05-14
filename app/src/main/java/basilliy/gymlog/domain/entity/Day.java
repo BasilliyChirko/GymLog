@@ -1,14 +1,16 @@
 package basilliy.gymlog.domain.entity;
 
+import basilliy.gymlog.domain.repository.ID;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 
-public class Day extends RealmObject {
+public class Day extends RealmObject implements ID {
 
     @PrimaryKey
-    protected long id;private String name;
+    protected long id;
+    private String name;
     private RealmList<Exercise> exerciseList = new RealmList<>();
 
 

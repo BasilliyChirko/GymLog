@@ -23,15 +23,16 @@ public class LoadData {
     }
 
     private static void loadMeasure() {
-        Resources res = App.getContext().getResources();
-        Repository<Measure> repository = App.getMeasureRepository();
-        repository.deleteAll();
-
-        addMeasure(repository, res, R.string.meter);
-        addMeasure(repository, res, R.string.centimeter);
-        addMeasure(repository, res, R.string.kilometer);
-        addMeasure(repository, res, R.string.kilogram);
-        addMeasure(repository, res, R.string.second);
+        // TODO: 14.05.2017 restore
+//        Resources res = App.getContext().getResources();
+//        Repository<Measure> repository = App.getMeasureRepository();
+//        repository.deleteAll();
+//
+//        addMeasure(repository, res, R.string.meter);
+//        addMeasure(repository, res, R.string.centimeter);
+//        addMeasure(repository, res, R.string.kilometer);
+//        addMeasure(repository, res, R.string.kilogram);
+//        addMeasure(repository, res, R.string.second);
     }
 
     private static void addMeasure(Repository<Measure> repository, Resources res,  int nameID) {
