@@ -9,7 +9,8 @@ import io.realm.annotations.PrimaryKey;
 public class Day extends RealmObject implements ID {
 
     @PrimaryKey
-    protected long id;private String name;
+    protected long id;
+    private String name;
     private RealmList<Exercise> exerciseList = new RealmList<>();
 
 

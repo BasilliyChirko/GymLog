@@ -28,16 +28,11 @@ public class Repository<T extends RealmObject> {
         realm.commitTransaction();
     }
 
-    public void delete(T object) {
-        if (object instanceof ID) {
-            ID id = (ID) object;
-            Realm realm = App.getRealm();
-            realm.beginTransaction();
-            realm.where(clazz).equalTo("id", id.getId()).findFirst().deleteFromRealm();
-            realm.commitTransaction();
-        } else {
-            throw new RuntimeException(clazz.getName() + " should implement ID");
-        }
+    public void delete(long id) {
+        Realm realm = App.getRealm();
+        realm.beginTransaction();
+        realm.where(clazz).equalTo("id", id).findFirst().deleteFromRealm();
+        realm.commitTransaction();
     }
 
     public long nextID(){
