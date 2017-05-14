@@ -1,11 +1,14 @@
 package basilliy.gymlog.domain.entity;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import basilliy.gymlog.domain.repository.ID;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class ExerciseStore extends RealmObject implements ID {
+public class ExerciseStore extends RealmObject implements ID, Parcelable {
 
     @PrimaryKey
     protected long id;private String name;
@@ -19,7 +22,33 @@ public class ExerciseStore extends RealmObject implements ID {
     private String involvedMuscle;
     private String advice;
 
+    public ExerciseStore() {}
 
+
+    protected ExerciseStore(Parcel in) {
+        id = in.readLong();
+        name = in.readString();
+        measure = in.readParcelable(Measure.class.getClassLoader());
+        level = in.readInt();
+        description = in.readString();
+        targetMuscle = in.readString();
+        inventory = in.readString();
+        instruction = in.readString();
+        involvedMuscle = in.readString();
+        advice = in.readString();
+    }
+
+    public static final Creator<ExerciseStore> CREATOR = new Creator<ExerciseStore>() {
+        @Override
+        public ExerciseStore createFromParcel(Parcel in) {
+            return new ExerciseStore(in);
+        }
+
+        @Override
+        public ExerciseStore[] newArray(int size) {
+            return new ExerciseStore[size];
+        }
+    };
 
     public long getId() {
         return id;
@@ -115,5 +144,24 @@ public class ExerciseStore extends RealmObject implements ID {
                 ", involvedMuscle='" + involvedMuscle + '\'' +
                 ", advice='" + advice + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(name);
+        dest.writeParcelable(measure, flags);
+        dest.writeInt(level);
+        dest.writeString(description);
+        dest.writeString(targetMuscle);
+        dest.writeString(inventory);
+        dest.writeString(instruction);
+        dest.writeString(involvedMuscle);
+        dest.writeString(advice);
     }
 }
