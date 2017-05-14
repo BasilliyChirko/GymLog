@@ -29,10 +29,15 @@ public class Repository<T extends RealmObject> {
     }
 
     public void delete(T object) {
-        Realm realm = App.getRealm();
-        realm.beginTransaction();
-        realm.where(clazz).equalTo("id", getID(object)).findFirst().deleteFromRealm();
-        realm.commitTransaction();
+        if (object instanceof ID) {
+            ID id = (ID) object;
+            Realm realm = App.getRealm();
+            realm.beginTransaction();
+            realm.where(clazz).equalTo("id", id.getId()).findFirst().deleteFromRealm();
+            realm.commitTransaction();
+        } else {
+            throw new RuntimeException(clazz.getName() + " should implement ID");
+        }
     }
 
     public long nextID(){
@@ -50,16 +55,4 @@ public class Repository<T extends RealmObject> {
         realm.commitTransaction();
     }
 
-
-    private long getID(T object) {
-        String s = object.toString();
-        s = s.substring(s.indexOf("id="));
-        s = s.substring(0, s.indexOf(","));
-
-        try {
-            return Long.valueOf(s);
-        } catch (Exception e) {
-            throw new RuntimeException("Object should have param \"id=\" in toString()");
-        }
-    }
 }
