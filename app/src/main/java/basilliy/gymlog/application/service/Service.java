@@ -1,10 +1,9 @@
-package basilliy.gymlog.application;
+package basilliy.gymlog.application.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.util.Iterator;
-
+import basilliy.gymlog.application.App;
 import basilliy.gymlog.utils.Config;
 import io.realm.RealmList;
 import io.realm.RealmObject;

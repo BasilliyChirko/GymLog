@@ -1,5 +1,6 @@
-package basilliy.gymlog.application;
+package basilliy.gymlog.application.service;
 
+import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.entity.Exercise;
 import io.realm.RealmList;
 

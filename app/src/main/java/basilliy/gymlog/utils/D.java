@@ -4,15 +4,13 @@ import android.content.Context;
 import android.util.Log;
 
 import basilliy.gymlog.application.App;
-import basilliy.gymlog.application.Service;
+import basilliy.gymlog.application.service.Service;
 import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Exercise;
 import basilliy.gymlog.domain.entity.ExerciseStore;
 import basilliy.gymlog.domain.entity.Measure;
 import basilliy.gymlog.domain.entity.Program;
-import basilliy.gymlog.domain.repository.Repository;
-import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 

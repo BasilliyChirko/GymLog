@@ -1,4 +1,4 @@
-package basilliy.gymlog.application;
+package basilliy.gymlog.application.service;
 
 import basilliy.gymlog.domain.entity.Approach;
 import io.realm.RealmList;
