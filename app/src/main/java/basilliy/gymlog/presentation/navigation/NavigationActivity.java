@@ -15,6 +15,10 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import basilliy.gymlog.R;
+import basilliy.gymlog.presentation.ExerciseList.ExerciseListFragment;
+import basilliy.gymlog.presentation.MeasureList.MeasureListFragment;
+import basilliy.gymlog.presentation.calendar.CalendarFragment;
+import basilliy.gymlog.presentation.graph.GraphFragment;
 import basilliy.gymlog.presentation.programActive.ProgramActiveFragment;
 import basilliy.gymlog.presentation.programList.ProgramListFragment;
 
@@ -81,12 +85,16 @@ public class NavigationActivity extends AppCompatActivity
                 fragment = ProgramListFragment.newInstance();
                 break;
             case R.id.nav_exercise:
+                fragment = ExerciseListFragment.newInstance();
                 break;
             case R.id.nav_measure:
+                fragment = MeasureListFragment.newInstance();
                 break;
             case R.id.nav_calendar:
+                fragment = CalendarFragment.newInstance();
                 break;
             case R.id.nav_graph:
+                fragment = GraphFragment.newInstance();
                 break;
         }
 
