@@ -2,7 +2,6 @@ package basilliy.gymlog.presentation.navigation;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.view.View;
@@ -12,16 +11,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import basilliy.gymlog.R;
-import basilliy.gymlog.application.App;
-import basilliy.gymlog.domain.entity.Measure;
 import basilliy.gymlog.presentation.programActive.ProgramActiveFragment;
-import basilliy.gymlog.utils.D;
-import io.realm.RealmResults;
+import basilliy.gymlog.presentation.programList.ProgramListFragment;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, RootActivity {
@@ -83,6 +78,7 @@ public class NavigationActivity extends AppCompatActivity
                 fragment = ProgramActiveFragment.newInstance();
                 break;
             case R.id.nav_program_list:
+                fragment = ProgramListFragment.newInstance();
                 break;
             case R.id.nav_exercise:
                 break;

@@ -1,4 +1,4 @@
-package basilliy.gymlog.presentation.programActive;
+package basilliy.gymlog.presentation.calendar;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import basilliy.gymlog.presentation.navigation.FragmentOnRoot;
 
 
-public class ProgramActiveFragment extends FragmentOnRoot {
+public class CalendarFragment extends FragmentOnRoot {
 
     @Nullable
     @Override
@@ -26,12 +26,12 @@ public class ProgramActiveFragment extends FragmentOnRoot {
 
     @Override
     public void initFloatButton(FloatingActionButton actionButton) {
-        setFloatButtonVisible(true);
+        setFloatButtonVisible(false);
     }
 
-    public static ProgramActiveFragment newInstance() {
+    public static CalendarFragment newInstance() {
         Bundle args = new Bundle();
-        ProgramActiveFragment fragment = new ProgramActiveFragment();
+        CalendarFragment fragment = new CalendarFragment();
         fragment.setArguments(args);
         return fragment;
     }
