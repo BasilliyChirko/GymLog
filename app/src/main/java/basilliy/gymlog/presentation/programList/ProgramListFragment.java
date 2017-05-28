@@ -46,7 +46,8 @@ public class ProgramListFragment extends FragmentOnRoot {
 
     @Override
     public void initFloatButton(FloatingActionButton actionButton) {
-        setFloatButtonVisible(false);
+        setFloatButtonVisible(true);
+        actionButton.setImageResource(R.drawable.ic_add_white);
     }
 
     public static ProgramListFragment newInstance() {
