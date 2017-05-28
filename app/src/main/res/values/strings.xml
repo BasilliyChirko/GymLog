@@ -20,4 +20,5 @@
     <string name="program_list_empty">Список тренировок пуст</string>
     <string name="program_name">Название тренировки</string>
     <string name="day_name">Название дня</string>
+    <string name="target_muscle">Целевая мышца:</string>
 </resources>

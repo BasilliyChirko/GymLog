@@ -91,9 +91,10 @@ public class ProgramConstructorActivity extends ConstructorActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             final Day day = program.getDayList().get(position);
-//            if (!day.getExerciseList().isEmpty()) {
-                holder.name.setText("День " + (position + 1) + ": " + day.getName());
-//            } else holder.name.setText("Отдых");
+            if (!day.getExerciseList().isEmpty()) {
+                String name = day.getName() == null ? "" : day.getName();
+                holder.name.setText("День " + (position + 1) + ": " + name);
+            } else holder.name.setText("Отдых");
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

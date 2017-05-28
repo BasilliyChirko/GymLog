@@ -48,7 +48,20 @@ public class DayConstructorActivity extends ConstructorActivity {
 
     @Override
     public void onClickFloatButton() {
-        // TODO: 28.05.2017
+        Intent intent = new Intent(this, ExerciseStoreActivity.class);
+        startActivityForResult(intent, REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST && resultCode == RESULT_OK) {
+            ExerciseStore store = data.getParcelableExtra(ExerciseStoreActivity.KEY_EXERCISE);
+            Exercise exercise = new Exercise();
+            exercise.setStore(store);
+            day.getExerciseList().add(exercise);
+            adapter.notifyItemInserted(day.getExerciseList().size() - 1);
+        }
     }
 
     private void onClickItem(Exercise exercise, int position) {

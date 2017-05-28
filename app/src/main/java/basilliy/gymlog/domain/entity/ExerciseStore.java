@@ -6,6 +6,7 @@ import android.os.Parcelable;
 
 import basilliy.gymlog.domain.repository.ID;
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 public class ExerciseStore extends RealmObject implements ID, Parcelable {
@@ -164,5 +165,18 @@ public class ExerciseStore extends RealmObject implements ID, Parcelable {
         dest.writeString(instruction);
         dest.writeString(involvedMuscle);
         dest.writeString(advice);
+    }
+
+    public String getLevelString() {
+        switch (level) {
+            case 1:
+                return "Простая";
+            case 2:
+                return "Средняя";
+            case 3:
+                return "Высокая";
+            default:
+                return null;
+        }
     }
 }

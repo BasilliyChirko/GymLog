@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.util.Log;
 
 import basilliy.gymlog.R;
+import basilliy.gymlog.application.service.ExerciseStoreService;
 import basilliy.gymlog.application.service.Service;
 import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Day;
@@ -57,8 +58,8 @@ public class LoadData {
     }
 
     private static void loadExerciseStore() {
-        Measure measure = App.getMeasureService().getSinge(3);
-        Repository<ExerciseStore> repository = App.getRepository(ExerciseStore.class);
+        Measure measure = App.getMeasureService().getSinge(4);
+        ExerciseStoreService repository = App.getExerciseStoreService();
         ExerciseStore store;
 
 //exercise = 1
