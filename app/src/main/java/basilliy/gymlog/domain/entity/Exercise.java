@@ -1,0 +1,80 @@
+package basilliy.gymlog.domain.entity;
+
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import basilliy.gymlog.domain.repository.ID;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Exercise extends RealmObject implements ID, Parcelable {
+
+    @PrimaryKey
+    protected long id;private ExerciseStore store;
+    private RealmList<Approach> approachList = new RealmList<>();
+
+    public Exercise(){}
+
+    protected Exercise(Parcel in) {
+        id = in.readLong();
+        store = in.readParcelable(ExerciseStore.class.getClassLoader());
+    }
+
+    public static final Creator<Exercise> CREATOR = new Creator<Exercise>() {
+        @Override
+        public Exercise createFromParcel(Parcel in) {
+            return new Exercise(in);
+        }
+
+        @Override
+        public Exercise[] newArray(int size) {
+            return new Exercise[size];
+        }
+    };
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public ExerciseStore getStore() {
+        return store;
+    }
+
+    public void setStore(ExerciseStore store) {
+        this.store = store;
+    }
+
+    public RealmList<Approach> getApproachList() {
+        return approachList;
+    }
+
+    public void setApproachList(RealmList<Approach> approachList) {
+        this.approachList = approachList;
+    }
+
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "id=" + id +
+                ", store=" + store +
+                ", approachList=" + approachList +
+                '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeParcelable(store, flags);
+    }
+}

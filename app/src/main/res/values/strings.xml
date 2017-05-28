@@ -4,5 +4,16 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="nav_program_active">Активная тренировка</string>
+    <string name="nav_program_list">Тренировки</string>
+    <string name="nav_exercise">Упражнения</string>
+    <string name="nav_measure">Замеры</string>
+    <string name="nav_calendar">Календарь</string>
+    <string name="nav_graph">Графики</string>
+
+    <string name="meter">м</string>
+    <string name="centimeter">см</string>
+    <string name="kilometer">км</string>
+    <string name="kilogram">кг</string>
+    <string name="second">сек</string>
 </resources>
