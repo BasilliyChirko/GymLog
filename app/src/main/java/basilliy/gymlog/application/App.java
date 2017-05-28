@@ -6,11 +6,13 @@ import android.content.Context;
 import basilliy.gymlog.application.service.ApproachService;
 import basilliy.gymlog.application.service.DayService;
 import basilliy.gymlog.application.service.ExerciseService;
+import basilliy.gymlog.application.service.MeasureService;
 import basilliy.gymlog.application.service.ProgramService;
 import basilliy.gymlog.application.service.Service;
 import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Exercise;
+import basilliy.gymlog.domain.entity.Measure;
 import basilliy.gymlog.domain.entity.Program;
 import basilliy.gymlog.domain.repository.Repository;
 import basilliy.gymlog.utils.Config;
@@ -53,6 +55,10 @@ public class App extends Application {
 
     public static Service<Approach> getApproachService() {
         return new ApproachService();
+    }
+
+    public static Service<Measure> getMeasureService() {
+        return new MeasureService();
     }
 
 

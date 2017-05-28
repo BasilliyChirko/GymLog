@@ -72,6 +72,10 @@ public abstract class Service<T extends RealmObject> {
         }
     }
 
+    public void removeAll() {
+        for (T t : getAll()) remove(t);
+    }
+
     public abstract RealmList getInnerList(T object);
 
     public abstract Service getInnerDataService();

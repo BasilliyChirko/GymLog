@@ -35,14 +35,6 @@ public class Repository<T extends RealmObject> {
         realm.commitTransaction();
     }
 
-    public long nextID(){
-        Realm realm = App.getRealm();
-        Long id = (Long) realm.where(clazz).max("id");
-        if (id == null)
-            id = 0L;
-        return id + 1;
-    }
-
     public void deleteAll() {
         Realm realm = App.getRealm();
         realm.beginTransaction();

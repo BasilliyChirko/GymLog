@@ -5,9 +5,11 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 
 import basilliy.gymlog.R;
+import basilliy.gymlog.application.service.Service;
 import basilliy.gymlog.domain.entity.Measure;
 import basilliy.gymlog.domain.repository.Repository;
 import basilliy.gymlog.utils.Config;
+import basilliy.gymlog.utils.D;
 
 public class LoadData {
 
@@ -23,23 +25,21 @@ public class LoadData {
     }
 
     private static void loadMeasure() {
-        // TODO: 14.05.2017 restore
-//        Resources res = App.getContext().getResources();
-//        Repository<Measure> repository = App.getMeasureRepository();
-//        repository.deleteAll();
-//
-//        addMeasure(repository, res, R.string.meter);
-//        addMeasure(repository, res, R.string.centimeter);
-//        addMeasure(repository, res, R.string.kilometer);
-//        addMeasure(repository, res, R.string.kilogram);
-//        addMeasure(repository, res, R.string.second);
+        Resources res = App.getContext().getResources();
+        Service<Measure> service = App.getMeasureService();
+        service.removeAll();
+
+        addMeasure(service, res, R.string.meter);
+        addMeasure(service, res, R.string.centimeter);
+        addMeasure(service, res, R.string.kilometer);
+        addMeasure(service, res, R.string.kilogram);
+        addMeasure(service, res, R.string.second);
     }
 
-    private static void addMeasure(Repository<Measure> repository, Resources res,  int nameID) {
+    private static void addMeasure(Service<Measure> service, Resources res, int nameID) {
         Measure measure = new Measure();
         measure.setName(res.getString(nameID));
-        measure.setId(repository.nextID());
-        repository.persist(measure);
+        service.persist(measure);
     }
 
     private static void loadExerciseStore() {
