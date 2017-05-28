@@ -1,5 +1,6 @@
 package basilliy.gymlog.presentation.navigation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -27,7 +28,7 @@ public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, RootActivity {
 
     private BackPressedListener backPressedListener;
-
+    private Fragment fragment;
     private FrameLayout toolbarContent;
     private FloatingActionButton floatButton;
 
@@ -57,7 +58,12 @@ public class NavigationActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        initContent();
+    }
+    
+    private void initContent() {
         setContentFragment(R.id.nav_program_list);
+        
     }
 
     @Override
@@ -83,7 +89,7 @@ public class NavigationActivity extends AppCompatActivity
     }
 
     private void setContentFragment(int id) {
-        Fragment fragment = null;
+        fragment = null;
 
         switch (id) {
             case R.id.nav_program_active:
@@ -135,5 +141,12 @@ public class NavigationActivity extends AppCompatActivity
     public void setFloatButtonVisible(boolean b) {
         // TODO: 14.05.2017 create animation
         floatButton.setVisibility(b ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (fragment != null)
+            fragment.onActivityResult(requestCode, resultCode, data);
     }
 }

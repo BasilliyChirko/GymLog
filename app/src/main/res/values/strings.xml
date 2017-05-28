@@ -18,4 +18,5 @@
     <string name="second">сек</string>
     <string name="program_list">Список тренировок</string>
     <string name="program_list_empty">Список тренировок пуст</string>
+    <string name="program_name">Название тренировки</string>
 </resources>

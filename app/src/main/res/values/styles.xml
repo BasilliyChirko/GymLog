@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/colorPrimaryDark2</item>
+        <item name="android:statusBarColor">#26ae80</item>
     </style>
 
     <style name="AppTheme.ActionBarText">
@@ -14,6 +14,12 @@
         <item name="android:textColor">#FFF</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.ActionBarEditText"  parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">left|center_vertical</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
