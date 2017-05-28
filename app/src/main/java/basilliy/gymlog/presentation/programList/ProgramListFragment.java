@@ -17,8 +17,8 @@ public class ProgramListFragment extends FragmentOnRoot {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initRootActivityElement();
-        View v = inflater.inflate(R.layout.fragment_program_list, container);
-        return null;
+        View v = inflater.inflate(R.layout.fragment_program_list, container, false);
+        return v;
     }
 
     @Override
