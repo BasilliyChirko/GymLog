@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import basilliy.gymlog.R;
 import basilliy.gymlog.presentation.navigation.FragmentOnRoot;
 
 
@@ -16,11 +17,12 @@ public class ProgramListFragment extends FragmentOnRoot {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initRootActivityElement();
-        return null;
+        View v = inflater.inflate(R.layout.fragment_program_list, container);
+        return v;
     }
 
     @Override
-    public View getToolbarContent() {
+    public View getToolbarContent(LayoutInflater inflater) {
         return null;
     }
 

@@ -15,8 +15,8 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import basilliy.gymlog.R;
-import basilliy.gymlog.presentation.ExerciseList.ExerciseListFragment;
-import basilliy.gymlog.presentation.MeasureList.MeasureListFragment;
+import basilliy.gymlog.presentation.exerciseList.ExerciseListFragment;
+import basilliy.gymlog.presentation.measureList.MeasureListFragment;
 import basilliy.gymlog.presentation.calendar.CalendarFragment;
 import basilliy.gymlog.presentation.graph.GraphFragment;
 import basilliy.gymlog.presentation.programActive.ProgramActiveFragment;

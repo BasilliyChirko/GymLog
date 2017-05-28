@@ -1,4 +1,4 @@
-package basilliy.gymlog.presentation.MeasureList;
+package basilliy.gymlog.presentation.exerciseList;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import basilliy.gymlog.presentation.navigation.FragmentOnRoot;
 
 
-public class MeasureListFragment extends FragmentOnRoot {
+public class ExerciseListFragment extends FragmentOnRoot {
 
     @Nullable
     @Override
@@ -20,7 +20,7 @@ public class MeasureListFragment extends FragmentOnRoot {
     }
 
     @Override
-    public View getToolbarContent() {
+    public View getToolbarContent(LayoutInflater inflater) {
         return null;
     }
 
@@ -29,9 +29,9 @@ public class MeasureListFragment extends FragmentOnRoot {
         setFloatButtonVisible(false);
     }
 
-    public static MeasureListFragment newInstance() {
+    public static ExerciseListFragment newInstance() {
         Bundle args = new Bundle();
-        MeasureListFragment fragment = new MeasureListFragment();
+        ExerciseListFragment fragment = new ExerciseListFragment();
         fragment.setArguments(args);
         return fragment;
     }
