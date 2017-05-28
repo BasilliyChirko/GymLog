@@ -1,14 +1,21 @@
 package basilliy.gymlog.presentation.programConstructor;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import basilliy.gymlog.R;
+import basilliy.gymlog.presentation.programConstructor.program.ProgramConstructorFragment;
 
 public class ProgramConstructorActivity extends AppCompatActivity {
+
+    ViewPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +32,12 @@ public class ProgramConstructorActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        ArrayList<Fragment> data = new ArrayList<>();
+        data.add(new ProgramConstructorFragment());
+
+        pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(new ProgramConstructorPager(getSupportFragmentManager(), data));
     }
 
     @Override
