@@ -16,4 +16,6 @@
     <string name="kilometer">км</string>
     <string name="kilogram">кг</string>
     <string name="second">сек</string>
+    <string name="program_list">Список тренировок</string>
+    <string name="program_list_empty">Список тренировок пуст</string>
 </resources>

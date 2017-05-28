@@ -20,7 +20,7 @@ public class GraphFragment extends FragmentOnRoot {
     }
 
     @Override
-    public View getToolbarContent() {
+    public View getToolbarContent(LayoutInflater inflater) {
         return null;
     }
 

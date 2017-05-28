@@ -25,11 +25,11 @@ public abstract class FragmentOnRoot extends Fragment implements RootActivity {
 
     public void initRootActivityElement(){
         setFloatButtonVisible(false);
-        setToolbarContent(getToolbarContent());
+        setToolbarContent(getToolbarContent(getActivity().getLayoutInflater()));
         initFloatButton(getFloatButton());
     }
 
-    public abstract View getToolbarContent();
+    public abstract View getToolbarContent(LayoutInflater inflater);
 
     public abstract void initFloatButton(FloatingActionButton actionButton);
 

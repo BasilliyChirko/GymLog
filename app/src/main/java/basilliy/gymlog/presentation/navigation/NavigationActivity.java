@@ -1,6 +1,7 @@
 package basilliy.gymlog.presentation.navigation;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -15,8 +16,8 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import basilliy.gymlog.R;
-import basilliy.gymlog.presentation.ExerciseList.ExerciseListFragment;
-import basilliy.gymlog.presentation.MeasureList.MeasureListFragment;
+import basilliy.gymlog.presentation.exerciseList.ExerciseListFragment;
+import basilliy.gymlog.presentation.measureList.MeasureListFragment;
 import basilliy.gymlog.presentation.calendar.CalendarFragment;
 import basilliy.gymlog.presentation.graph.GraphFragment;
 import basilliy.gymlog.presentation.programActive.ProgramActiveFragment;
@@ -55,6 +56,8 @@ public class NavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        setContentFragment(R.id.nav_program_list);
     }
 
     @Override
@@ -72,9 +75,14 @@ public class NavigationActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        setContentFragment(item.getItemId());
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void setContentFragment(int id) {
         Fragment fragment = null;
 
         switch (id) {
@@ -109,10 +117,6 @@ public class NavigationActivity extends AppCompatActivity
                     .replace(R.id.content, fragment)
                     .commit();
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     @Override
