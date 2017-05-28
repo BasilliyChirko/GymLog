@@ -3,6 +3,9 @@ package basilliy.gymlog.presentation.programList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +19,13 @@ import io.realm.RealmResults;
 
 public class ProgramListFragment extends FragmentOnRoot {
 
-    private RealmResults<Program> list;
+    private RealmResults<Program> data;
+    private ProgramListAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        list = App.getProgramService().getAll();
+        data = App.getProgramService().getAll();
     }
 
     @Nullable
@@ -33,9 +37,14 @@ public class ProgramListFragment extends FragmentOnRoot {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (list.isEmpty()) {
+        if (data.isEmpty()) {
             view.findViewById(R.id.label_empty).setVisibility(View.VISIBLE);
-            return;
+        } else {
+            RecyclerView list = (RecyclerView) view.findViewById(R.id.recycler_view);
+            adapter = new ProgramListAdapter(data, getActivity().getLayoutInflater());
+            list.setAdapter(adapter);
+            list.setItemAnimator(new DefaultItemAnimator());
+            list.setLayoutManager(new LinearLayoutManager(getContext()));
         }
     }
 
