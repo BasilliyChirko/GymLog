@@ -18,12 +18,12 @@ public class ProgramListFragment extends FragmentOnRoot {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initRootActivityElement();
         View v = inflater.inflate(R.layout.fragment_program_list, container);
-        return v;
+        return null;
     }
 
     @Override
     public View getToolbarContent(LayoutInflater inflater) {
-        return null;
+        return inflater.inflate(R.layout.action_bar_program_list, null);
     }
 
     @Override
