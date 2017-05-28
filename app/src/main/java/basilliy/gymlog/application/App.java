@@ -6,6 +6,7 @@ import android.content.Context;
 import basilliy.gymlog.application.service.ApproachService;
 import basilliy.gymlog.application.service.DayService;
 import basilliy.gymlog.application.service.ExerciseService;
+import basilliy.gymlog.application.service.ExerciseStoreService;
 import basilliy.gymlog.application.service.MeasureService;
 import basilliy.gymlog.application.service.ProgramService;
 import basilliy.gymlog.application.service.Service;
@@ -59,6 +60,10 @@ public class App extends Application {
 
     public static Service<Measure> getMeasureService() {
         return new MeasureService();
+    }
+
+    public static ExerciseStoreService getExerciseStoreService() {
+        return new ExerciseStoreService();
     }
 
 

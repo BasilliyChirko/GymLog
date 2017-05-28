@@ -77,4 +77,42 @@ public class Exercise extends RealmObject implements ID, Parcelable {
         dest.writeLong(id);
         dest.writeParcelable(store, flags);
     }
+
+    public String getRepsString() {
+        long min = 999;
+        long max = -1;
+        for (Approach approach : approachList) {
+            if (approach.getReps() > max)
+                max = approach.getReps();
+            if (approach.getReps() < min)
+                min = approach.getReps();
+        }
+
+        if (max == min)
+            return String.valueOf(max);
+
+        if (max == 999 || min == -1)
+            return "";
+
+        return "~" + ((max + min) / 2);
+    }
+
+    public String getValueString() {
+        long min = 999;
+        long max = -1;
+        for (Approach approach : approachList) {
+            if (approach.getValue() > max)
+                max = approach.getValue();
+            if (approach.getValue() < min)
+                min = approach.getValue();
+        }
+
+        if (max == min)
+            return String.valueOf(max);
+
+        if (max == 999 || min == -1)
+            return "";
+
+        return "~" + ((max + min) / 2);
+    }
 }

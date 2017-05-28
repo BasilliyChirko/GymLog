@@ -11,7 +11,8 @@ import io.realm.annotations.PrimaryKey;
 public class ExerciseStore extends RealmObject implements ID, Parcelable {
 
     @PrimaryKey
-    protected long id;private String name;
+    protected long id;
+    private String name;
     private Measure measure;
 
     private int level;
