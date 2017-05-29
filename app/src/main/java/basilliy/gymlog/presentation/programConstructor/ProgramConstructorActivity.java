@@ -32,6 +32,7 @@ import io.realm.RealmList;
 public class ProgramConstructorActivity extends ConstructorActivity {
 
     public static final String KEY_PROGRAM = "key_program";
+    public static final String KEY_POSITION = "key_position";
     public static final int REQUEST = 1001;
 
     private Program program;
@@ -63,6 +64,7 @@ public class ProgramConstructorActivity extends ConstructorActivity {
             program.getDayList().add(new Day());
         }
 
+        name.setText(program.getName());
         checkEmpty();
     }
 
@@ -70,11 +72,12 @@ public class ProgramConstructorActivity extends ConstructorActivity {
         @Override
         public void onClick(View v) {
             program.setName(name.getText().toString());
-
             if (checkProgram(program)) {
                 App.getProgramService().persist(program);
                 Intent intent = new Intent();
                 intent.putExtra(KEY_PROGRAM, program);
+                if (getIntent().hasExtra(KEY_POSITION))
+                    intent.putExtra(KEY_POSITION, getIntent().getIntExtra(KEY_POSITION, -1));
                 setResult(RESULT_OK, intent);
                 finish();
             }
