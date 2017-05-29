@@ -25,4 +25,6 @@
     <string name="empty_day_list">Список дней пуст</string>
     <string name="empty_exercise_list">Список упражнений пуст</string>
     <string name="empty_approach_list">Список подходов пуст</string>
+    <string name="edit">Редатировать</string>
+    <string name="remove">Удалить</string>
 </resources>
