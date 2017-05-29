@@ -37,6 +37,10 @@
             android:name=".presentation.programConstructor.ExerciseStoreMoreActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".presentation.programConstructor.ExerciseConstructorActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
