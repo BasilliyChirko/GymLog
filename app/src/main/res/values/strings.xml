@@ -18,4 +18,11 @@
     <string name="second">сек</string>
     <string name="program_list">Список тренировок</string>
     <string name="program_list_empty">Список тренировок пуст</string>
+    <string name="program_name">Название тренировки</string>
+    <string name="day_name">Название дня</string>
+    <string name="target_muscle">Целевая мышца:</string>
+    <string name="ok">OK</string>
+    <string name="empty_day_list">Список дней пуст</string>
+    <string name="empty_exercise_list">Список упражнений пуст</string>
+    <string name="empty_approach_list">Список подходов пуст</string>
 </resources>

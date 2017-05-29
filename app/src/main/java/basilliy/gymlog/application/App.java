@@ -2,10 +2,12 @@ package basilliy.gymlog.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import basilliy.gymlog.application.service.ApproachService;
 import basilliy.gymlog.application.service.DayService;
 import basilliy.gymlog.application.service.ExerciseService;
+import basilliy.gymlog.application.service.ExerciseStoreService;
 import basilliy.gymlog.application.service.MeasureService;
 import basilliy.gymlog.application.service.ProgramService;
 import basilliy.gymlog.application.service.Service;
@@ -59,6 +61,14 @@ public class App extends Application {
 
     public static Service<Measure> getMeasureService() {
         return new MeasureService();
+    }
+
+    public static ExerciseStoreService getExerciseStoreService() {
+        return new ExerciseStoreService();
+    }
+
+    public static SharedPreferences getPreferences () {
+        return App.getContext().getSharedPreferences(Config.pref.name, Context.MODE_PRIVATE);
     }
 
 

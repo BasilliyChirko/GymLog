@@ -1,5 +1,6 @@
 package basilliy.gymlog.presentation.programList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,11 +15,13 @@ import basilliy.gymlog.R;
 import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.entity.Program;
 import basilliy.gymlog.presentation.navigation.FragmentOnRoot;
+import basilliy.gymlog.presentation.programConstructor.ProgramConstructorActivity;
 import io.realm.RealmResults;
 
 
 public class ProgramListFragment extends FragmentOnRoot {
 
+    private static final int REQUEST_CONSTRUCTOR = 1322;
     private RealmResults<Program> data;
     private ProgramListAdapter adapter;
 
@@ -57,6 +60,17 @@ public class ProgramListFragment extends FragmentOnRoot {
     public void initFloatButton(FloatingActionButton actionButton) {
         setFloatButtonVisible(true);
         actionButton.setImageResource(R.drawable.ic_add_white);
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startConstructor();
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public static ProgramListFragment newInstance() {
@@ -64,5 +78,10 @@ public class ProgramListFragment extends FragmentOnRoot {
         ProgramListFragment fragment = new ProgramListFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private void startConstructor() {
+        Intent intent = new Intent(getContext(), ProgramConstructorActivity.class);
+        getActivity().startActivityForResult(intent, REQUEST_CONSTRUCTOR);
     }
 }
