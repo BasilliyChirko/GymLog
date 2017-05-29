@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import basilliy.gymlog.R;
+import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Program;
 import io.realm.RealmResults;
 
@@ -28,6 +29,23 @@ class ProgramListAdapter extends RecyclerView.Adapter<ProgramListViewHolder> {
         Program program = data.get(position);
 
         holder.name.setText(program.getName());
+        holder.days.setText("Продолжительность " + String.valueOf(program.getDayList().size())
+                + " " + getDayName(program.getDayList().size()));
+
+        int i = 0;
+        for (Day day : program.getDayList())
+            if (day.getExerciseList().size() > 0)
+                i++;
+
+        holder.daysWork.setText("Тренировок " + i + " " + getDayName(i));
+    }
+
+    private String getDayName(int i) {
+        if (i == 1) return "день";
+        if (i <= 4) return "дня";
+        if (i == 11) return "дней";
+        if (i % 10 == 1) return "день";
+        return "дней";
     }
 
     @Override
