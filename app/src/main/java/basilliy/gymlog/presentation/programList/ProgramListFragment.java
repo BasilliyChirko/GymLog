@@ -10,9 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import basilliy.gymlog.R;
 import basilliy.gymlog.application.App;
+import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Program;
 import basilliy.gymlog.presentation.navigation.FragmentOnRoot;
 import basilliy.gymlog.presentation.programConstructor.ProgramConstructorActivity;
@@ -83,5 +85,66 @@ public class ProgramListFragment extends FragmentOnRoot {
     private void startConstructor() {
         Intent intent = new Intent(getContext(), ProgramConstructorActivity.class);
         getActivity().startActivityForResult(intent, REQUEST_CONSTRUCTOR);
+    }
+
+    private class ProgramListViewHolder extends RecyclerView.ViewHolder {
+
+        TextView name;
+        TextView days;
+        TextView daysWork;
+
+        ProgramListViewHolder(View v) {
+            super(v);
+            name = (TextView) v.findViewById(R.id.name);
+            days = (TextView) v.findViewById(R.id.day_count);
+            daysWork = (TextView) v.findViewById(R.id.day_work);
+        }
+    }
+
+    private class ProgramListAdapter extends RecyclerView.Adapter<ProgramListViewHolder> {
+
+        public RealmResults<Program> data;
+        private LayoutInflater inflater;
+
+        ProgramListAdapter(RealmResults<Program> data, LayoutInflater inflater) {
+            this.data = data;
+            this.inflater = inflater;
+        }
+
+        @Override
+        public ProgramListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ProgramListViewHolder(inflater.inflate(R.layout.element_program_list, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(ProgramListViewHolder holder, int position) {
+            Program program = data.get(position);
+
+            holder.name.setText(program.getName());
+            holder.days.setText("Продолжительность " + String.valueOf(program.getDayList().size())
+                    + " " + getDayName(program.getDayList().size()));
+
+            int i = 0;
+            for (Day day : program.getDayList())
+                if (day.getExerciseList().size() > 0)
+                    i++;
+
+            holder.daysWork.setText("Тренировок " + i + " " + getDayName(i));
+        }
+
+        private String getDayName(int i) {
+            if (i == 1) return "день";
+            if (i <= 4) return "дня";
+            if (i == 11) return "дней";
+            if (i % 10 == 1) return "день";
+            return "дней";
+        }
+
+        @Override
+        public int getItemCount() {
+            if (data != null)
+                return data.size();
+            return 0;
+        }
     }
 }
