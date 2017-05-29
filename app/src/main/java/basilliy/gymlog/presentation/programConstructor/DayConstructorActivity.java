@@ -27,6 +27,7 @@ public class DayConstructorActivity extends ConstructorActivity {
     private Day day;
     private RecyclerAdapter adapter;
     private TextView name;
+    private View labelEmpty;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +42,8 @@ public class DayConstructorActivity extends ConstructorActivity {
 
         name = (TextView) findViewById(R.id.name);
         name.setText(day.getName() == null ? "" : day.getName());
+        labelEmpty = findViewById(R.id.label_empty);
+        checkEmpty();
     }
 
     @Override
@@ -63,12 +66,14 @@ public class DayConstructorActivity extends ConstructorActivity {
             exercise.setStore(store);
             day.getExerciseList().add(exercise);
             adapter.notifyItemInserted(day.getExerciseList().size() - 1);
+            checkEmpty();
         } else if (requestCode == REQUEST_EXERCISE && resultCode == RESULT_OK) {
             Exercise exercise = data.getParcelableExtra(ExerciseConstructorActivity.KEY_EXERCISE);
             int position = data.getIntExtra(ExerciseConstructorActivity.KEY_POSITION, -1);
             day.getExerciseList().remove(position);
             day.getExerciseList().add(position, exercise);
             adapter.notifyItemChanged(position);
+            checkEmpty();
         }
     }
 
@@ -77,6 +82,10 @@ public class DayConstructorActivity extends ConstructorActivity {
         intent.putExtra(ExerciseConstructorActivity.KEY_EXERCISE, exercise);
         intent.putExtra(ExerciseConstructorActivity.KEY_POSITION, position);
         startActivityForResult(intent, REQUEST_EXERCISE);
+    }
+
+    private void checkEmpty() {
+        labelEmpty.setVisibility(day.getExerciseList().size() == 0 ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -92,7 +101,6 @@ public class DayConstructorActivity extends ConstructorActivity {
     private class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         View view;
-        View detail;
         TextView approach;
         TextView reps;
         TextView value;
@@ -103,7 +111,6 @@ public class DayConstructorActivity extends ConstructorActivity {
             approach = (TextView) view.findViewById(R.id.approach);
             reps = (TextView) view.findViewById(R.id.reps);
             value = (TextView) view.findViewById(R.id.value);
-            detail = view.findViewById(R.id.detail);
             this.view = view;
         }
     }
@@ -126,7 +133,6 @@ public class DayConstructorActivity extends ConstructorActivity {
             holder.approach.setVisibility(showInfo ? View.VISIBLE : View.GONE);
             holder.reps.setVisibility(showInfo ? View.VISIBLE : View.GONE);
             holder.value.setVisibility(showInfo ? View.VISIBLE : View.GONE);
-            holder.detail.setVisibility(showInfo ? View.VISIBLE : View.GONE);
 
             holder.approach.setText("Подходов: " + exercise.getApproachList().size());
             holder.reps.setText("Повторений: " + exercise.getRepsString());
@@ -155,6 +161,7 @@ public class DayConstructorActivity extends ConstructorActivity {
         public void onItemDismiss(int position) {
             day.getExerciseList().remove(position);
             notifyItemRemoved(position);
+            checkEmpty();
         }
     }
 }

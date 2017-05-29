@@ -28,7 +28,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        tools:listitem="@layout/element_day" />
+        tools:listitem="@layout/element_day"/>
+
+    <TextView
+        android:id="@+id/label_empty"
+        android:layout_marginTop="70dp"
+        android:text="@string/empty_day_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

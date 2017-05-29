@@ -21,6 +21,7 @@ public class ExerciseConstructorActivity extends ConstructorActivity implements 
 
     private Exercise exercise;
     private RecyclerAdapter adapter;
+    private View labelEmpty;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,8 @@ public class ExerciseConstructorActivity extends ConstructorActivity implements 
 
         exercise = getIntent().getParcelableExtra(KEY_EXERCISE);
         ((TextView) findViewById(R.id.name)).setText(exercise.getStore().getName());
+        labelEmpty = findViewById(R.id.label_empty);
+        checkEmpty();
     }
 
     @Override
@@ -58,6 +61,10 @@ public class ExerciseConstructorActivity extends ConstructorActivity implements 
                 .show(getSupportFragmentManager(), "tag");
     }
 
+    private void checkEmpty() {
+        labelEmpty.setVisibility(exercise.getApproachList().size() == 0 ? View.VISIBLE : View.GONE);
+    }
+
     private void onClickItem(Approach approach, int position) {
         ApproachConstructorDialog
                 .newInstance(approach, position, exercise.getStore().getMeasure())
@@ -74,6 +81,7 @@ public class ExerciseConstructorActivity extends ConstructorActivity implements 
             exercise.getApproachList().add(position, approach);
             adapter.notifyItemChanged(position);
         }
+        checkEmpty();
     }
 
 
@@ -98,7 +106,9 @@ public class ExerciseConstructorActivity extends ConstructorActivity implements 
         public void onBindViewHolder(final ViewHolder holder, int position) {
             final Approach approach = exercise.getApproachList().get(position);
 
-            String text = approach.getReps() + "x" +  approach.getValue()
+            String text =
+                    "Подход " + (position + 1) + ": " +
+                    approach.getReps() + "x" +  approach.getValue()
                     + " " + exercise.getStore().getMeasure().getName();
             holder.name.setText(text);
 
@@ -125,6 +135,7 @@ public class ExerciseConstructorActivity extends ConstructorActivity implements 
         public void onItemDismiss(int position) {
             exercise.getApproachList().remove(position);
             notifyItemRemoved(position);
+            checkEmpty();
         }
     }
 }

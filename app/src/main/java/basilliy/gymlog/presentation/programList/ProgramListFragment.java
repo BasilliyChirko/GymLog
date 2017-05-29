@@ -49,7 +49,6 @@ public class ProgramListFragment extends FragmentOnRoot {
             list.setItemAnimator(new DefaultItemAnimator());
             list.setLayoutManager(new LinearLayoutManager(getContext()));
         }
-        startConstructor();
     }
 
     @Override

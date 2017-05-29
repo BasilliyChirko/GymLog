@@ -1,8 +1,10 @@
 package basilliy.gymlog.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import basilliy.gymlog.application.App;
 import basilliy.gymlog.application.service.Service;
@@ -127,5 +129,9 @@ public final class D {
         } else {
             Log.d(TAG, String.valueOf(object));
         }
+    }
+
+    public static void toast(String text) {
+        Toast.makeText(App.getContext(), text, Toast.LENGTH_SHORT).show();
     }
 }

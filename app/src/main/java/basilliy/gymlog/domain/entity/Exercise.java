@@ -74,41 +74,23 @@ public class Exercise extends RealmObject implements ID, Parcelable {
     }
 
     public String getRepsString() {
-        long min = 999;
-        long max = -1;
-        for (Approach approach : approachList) {
-            if (approach.getReps() > max)
-                max = approach.getReps();
-            if (approach.getReps() < min)
-                min = approach.getReps();
-        }
-
-        if (max == min)
-            return String.valueOf(max);
-
-        if (max == 999 || min == -1)
+        if (getApproachList().size() == 0)
             return "";
-
-        return "~" + ((max + min) / 2);
+        StringBuilder builder = new StringBuilder();
+        for (Approach approach : getApproachList())
+            builder.append(approach.getReps()).append("-");
+        String s = builder.toString();
+        return s.substring(0, s.length() - 1);
     }
 
     public String getValueString() {
-        long min = 999;
-        long max = -1;
-        for (Approach approach : approachList) {
-            if (approach.getValue() > max)
-                max = approach.getValue();
-            if (approach.getValue() < min)
-                min = approach.getValue();
-        }
-
-        if (max == min)
-            return String.valueOf(max);
-
-        if (max == 999 || min == -1)
+        if (getApproachList().size() == 0)
             return "";
-
-        return "~" + ((max + min) / 2);
+        StringBuilder builder = new StringBuilder();
+        for (Approach approach : getApproachList())
+            builder.append(approach.getValue()).append("-");
+        String s = builder.toString();
+        return s.substring(0, s.length() - 1);
     }
 
     @Override

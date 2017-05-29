@@ -2,6 +2,7 @@ package basilliy.gymlog.presentation.programConstructor;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -12,8 +13,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import basilliy.gymlog.R;
+import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Measure;
+import basilliy.gymlog.utils.Config;
 
 public class ApproachConstructorDialog extends DialogFragment {
 
@@ -41,6 +44,10 @@ public class ApproachConstructorDialog extends DialogFragment {
         reps = (EditText) v.findViewById(R.id.reps);
         value = (EditText) v.findViewById(R.id.value);
 
+        SharedPreferences preferences = App.getPreferences();
+        reps.setText(String.valueOf(preferences.getInt(Config.pref.approachReps, 15)));
+        value.setText(String.valueOf(preferences.getInt(Config.pref.approachValue, 30)));
+
         ((TextView) v.findViewById(R.id.measure)).setText(measure.getName());
         v.findViewById(R.id.done).setOnClickListener(onClickDone);
 
@@ -51,9 +58,17 @@ public class ApproachConstructorDialog extends DialogFragment {
         @Override
         public void onClick(View v) {
             if (listener != null) {
-                approach.setValue(Integer.parseInt(value.getText().toString()));
-                approach.setReps(Integer.parseInt(reps.getText().toString()));
-                listener.onApproach(approach, position);
+                try {
+                    int value = Integer.parseInt(ApproachConstructorDialog.this.value.getText().toString());
+                    int reps = Integer.parseInt(ApproachConstructorDialog.this.reps.getText().toString());
+                    approach.setValue(value);
+                    approach.setReps(reps);
+                    App.getPreferences().edit()
+                            .putInt(Config.pref.approachReps, reps)
+                            .putInt(Config.pref.approachValue, value)
+                            .apply();
+                    listener.onApproach(approach, position);
+                } catch (Exception ignored){}
             }
             dismiss();
         }

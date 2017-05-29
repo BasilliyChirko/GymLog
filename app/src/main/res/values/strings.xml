@@ -22,4 +22,7 @@
     <string name="day_name">Название дня</string>
     <string name="target_muscle">Целевая мышца:</string>
     <string name="ok">OK</string>
+    <string name="empty_day_list">Список дней пуст</string>
+    <string name="empty_exercise_list">Список упражнений пуст</string>
+    <string name="empty_approach_list">Список подходов пуст</string>
 </resources>
