@@ -6,8 +6,9 @@ import android.widget.TextView;
 
 import basilliy.gymlog.R;
 import basilliy.gymlog.domain.entity.ExerciseStore;
+import basilliy.gymlog.presentation.utils.SecondActivity;
 
-public class ExerciseStoreMoreActivity extends ConstructorActivity {
+public class ExerciseStoreMoreActivity extends SecondActivity {
 
     public static final String KEY_EXERCISE = "key_exercise";
     private ExerciseStore store;

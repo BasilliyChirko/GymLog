@@ -1,15 +1,24 @@
 package basilliy.gymlog.presentation.programList;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import basilliy.gymlog.R;
+import basilliy.gymlog.presentation.utils.SecondActivity;
 
-public class ProgramActivity extends AppCompatActivity {
+public class ProgramActivity extends SecondActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_program);
+    }
+
+    @Override
+    public int getContentView() {
+        return R.layout.activity_program;
+    }
+
+    @Override
+    public void onClickFloatButton() {
+
     }
 }

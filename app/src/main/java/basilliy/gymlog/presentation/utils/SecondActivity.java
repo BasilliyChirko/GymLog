@@ -1,4 +1,4 @@
-package basilliy.gymlog.presentation.programConstructor;
+package basilliy.gymlog.presentation.utils;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +11,7 @@ import android.view.View;
 import basilliy.gymlog.R;
 
 
-public abstract class ConstructorActivity extends AppCompatActivity {
+public abstract class SecondActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
