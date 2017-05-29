@@ -140,12 +140,19 @@ public class ProgramListFragment extends FragmentOnRoot {
         getActivity().startActivityForResult(intent, REQUEST_EDIT);
     }
 
-    private class ProgramListViewHolder extends RecyclerView.ViewHolder {
+    private void openProgram(Program program, int position) {
+        Intent intent = new Intent(getContext(), ProgramActivity.class);
+        intent.putExtra(ProgramActivity.KEY_PROGRAM, program);
+        intent.putExtra(ProgramActivity.KEY_POSITION, position);
+        getActivity().startActivityForResult(intent, REQUEST_EDIT);
+    }
 
+    private class ProgramListViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView days;
         TextView daysWork;
         View more;
+        View view;
 
         ProgramListViewHolder(View v) {
             super(v);
@@ -153,6 +160,7 @@ public class ProgramListFragment extends FragmentOnRoot {
             days = (TextView) v.findViewById(R.id.day_count);
             daysWork = (TextView) v.findViewById(R.id.day_work);
             more = v.findViewById(R.id.more);
+            view = v;
         }
     }
 
@@ -182,6 +190,13 @@ public class ProgramListFragment extends FragmentOnRoot {
                 @Override
                 public void onClick(View v) {
                     showPopup(holder.more, program, holder.getAdapterPosition());
+                }
+            });
+
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openProgram(program, holder.getAdapterPosition());
                 }
             });
         }

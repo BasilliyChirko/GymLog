@@ -135,7 +135,7 @@ public class DayConstructorActivity extends SecondActivity {
             holder.value.setVisibility(showInfo ? View.VISIBLE : View.GONE);
 
             holder.approach.setText("Подходов: " + exercise.getApproachList().size());
-            holder.reps.setText("Повторений: " + exercise.getRepsString());
+            holder.reps.setText("Повторения: " + exercise.getRepsString());
             holder.value.setText("Нагрузка: " + exercise.getValueString());
 
             holder.view.setOnClickListener(new View.OnClickListener() {

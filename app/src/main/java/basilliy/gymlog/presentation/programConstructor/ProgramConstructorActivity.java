@@ -77,6 +77,9 @@ public class ProgramConstructorActivity extends SecondActivity {
     };
 
     private boolean checkProgram(Program program) {
+        if (program.getDayList().size() == 0)
+            finish();
+
         String name = program.getName();
         if (name == null || name.isEmpty()) {
             D.toast("Введи название тренировки");
