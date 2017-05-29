@@ -34,7 +34,7 @@ public class ApproachConstructorDialog extends DialogFragment {
         Bundle args = getArguments();
 
         Measure measure = args.getParcelable(KEY_MEASURE);
-        approach = args.containsKey(KEY_APPROACH) ? (Approach) args.getParcelable(KEY_APPROACH) : null;
+        approach = args.containsKey(KEY_APPROACH) ? (Approach) args.getParcelable(KEY_APPROACH) : new Approach();
         position = args.containsKey(KEY_POSITION) ? args.getInt(KEY_POSITION) : -1;
 
         View v = LayoutInflater.from(getContext()).inflate(R.layout.dialog_approach_constructor, null);
@@ -42,12 +42,9 @@ public class ApproachConstructorDialog extends DialogFragment {
         value = (EditText) v.findViewById(R.id.value);
 
         ((TextView) v.findViewById(R.id.measure)).setText(measure.getName());
-
         v.findViewById(R.id.done).setOnClickListener(onClickDone);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-        return builder.create();
+        return new AlertDialog.Builder(getContext()).setView(v).create();
     }
 
     View.OnClickListener onClickDone = new View.OnClickListener() {

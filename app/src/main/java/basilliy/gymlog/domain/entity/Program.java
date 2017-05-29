@@ -73,11 +73,14 @@ public class Program extends RealmObject implements ID, Parcelable {
     protected Program(Parcel in) {
         id = in.readLong();
         name = in.readString();
+        dayList = new RealmList<>();
+        in.readTypedList(dayList, Day.CREATOR);
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeString(name);
+        dest.writeTypedList(dayList);
     }
 }

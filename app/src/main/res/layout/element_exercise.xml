@@ -22,9 +22,10 @@
             tools:text="Name" />
 
         <LinearLayout
-            android:layout_marginTop="8dp"
+            android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <TextView
@@ -46,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                tools:text="TextView"/>
+                tools:text="TextView" />
 
         </LinearLayout>
 

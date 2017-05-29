@@ -4,6 +4,10 @@ package basilliy.gymlog.domain.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
+import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.repository.ID;
 import io.realm.RealmList;
 import io.realm.RealmObject;
@@ -20,6 +24,8 @@ public class Exercise extends RealmObject implements ID, Parcelable {
     protected Exercise(Parcel in) {
         id = in.readLong();
         store = in.readParcelable(ExerciseStore.class.getClassLoader());
+        approachList = new RealmList<>();
+        in.readTypedList(approachList, Approach.CREATOR);
     }
 
     public static final Creator<Exercise> CREATOR = new Creator<Exercise>() {
@@ -67,17 +73,6 @@ public class Exercise extends RealmObject implements ID, Parcelable {
                 '}';
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(id);
-        dest.writeParcelable(store, flags);
-    }
-
     public String getRepsString() {
         long min = 999;
         long max = -1;
@@ -114,5 +109,17 @@ public class Exercise extends RealmObject implements ID, Parcelable {
             return "";
 
         return "~" + ((max + min) / 2);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeParcelable(store, flags);
+        dest.writeTypedList(approachList);
     }
 }

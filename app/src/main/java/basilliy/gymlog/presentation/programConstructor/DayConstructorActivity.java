@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import basilliy.gymlog.R;
+import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Exercise;
 import basilliy.gymlog.domain.entity.ExerciseStore;
@@ -20,7 +21,8 @@ public class DayConstructorActivity extends ConstructorActivity {
 
     public static final String KEY_DAY = "key_day";
     public static final String KEY_POSITION = "key_position";
-    public static final int REQUEST = 1002;
+    public static final int REQUEST_STORE = 1002;
+    public static final int REQUEST_EXERCISE = 1003;
 
     private Day day;
     private RecyclerAdapter adapter;
@@ -49,27 +51,32 @@ public class DayConstructorActivity extends ConstructorActivity {
     @Override
     public void onClickFloatButton() {
         Intent intent = new Intent(this, ExerciseStoreActivity.class);
-        startActivityForResult(intent, REQUEST);
+        startActivityForResult(intent, REQUEST_STORE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_STORE && resultCode == RESULT_OK) {
             ExerciseStore store = data.getParcelableExtra(ExerciseStoreActivity.KEY_EXERCISE);
             Exercise exercise = new Exercise();
             exercise.setStore(store);
             day.getExerciseList().add(exercise);
             adapter.notifyItemInserted(day.getExerciseList().size() - 1);
+        } else if (requestCode == REQUEST_EXERCISE && resultCode == RESULT_OK) {
+            Exercise exercise = data.getParcelableExtra(ExerciseConstructorActivity.KEY_EXERCISE);
+            int position = data.getIntExtra(ExerciseConstructorActivity.KEY_POSITION, -1);
+            day.getExerciseList().remove(position);
+            day.getExerciseList().add(position, exercise);
+            adapter.notifyItemChanged(position);
         }
     }
 
     private void onClickItem(Exercise exercise, int position) {
-        // TODO: 28.05.2017
-//        Intent intent = new Intent(this, DayConstructorActivity.class);
-//        intent.putExtra(DayConstructorActivity.KEY_DAY, exercise);
-//        intent.putExtra(DayConstructorActivity.KEY_POSITION, position);
-//        startActivityForResult(intent, REQUEST);
+        Intent intent = new Intent(this, ExerciseConstructorActivity.class);
+        intent.putExtra(ExerciseConstructorActivity.KEY_EXERCISE, exercise);
+        intent.putExtra(ExerciseConstructorActivity.KEY_POSITION, position);
+        startActivityForResult(intent, REQUEST_EXERCISE);
     }
 
     @Override
@@ -85,6 +92,7 @@ public class DayConstructorActivity extends ConstructorActivity {
     private class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         View view;
+        View detail;
         TextView approach;
         TextView reps;
         TextView value;
@@ -95,6 +103,7 @@ public class DayConstructorActivity extends ConstructorActivity {
             approach = (TextView) view.findViewById(R.id.approach);
             reps = (TextView) view.findViewById(R.id.reps);
             value = (TextView) view.findViewById(R.id.value);
+            detail = view.findViewById(R.id.detail);
             this.view = view;
         }
     }
@@ -117,6 +126,7 @@ public class DayConstructorActivity extends ConstructorActivity {
             holder.approach.setVisibility(showInfo ? View.VISIBLE : View.GONE);
             holder.reps.setVisibility(showInfo ? View.VISIBLE : View.GONE);
             holder.value.setVisibility(showInfo ? View.VISIBLE : View.GONE);
+            holder.detail.setVisibility(showInfo ? View.VISIBLE : View.GONE);
 
             holder.approach.setText("Подходов: " + exercise.getApproachList().size());
             holder.reps.setText("Повторений: " + exercise.getRepsString());

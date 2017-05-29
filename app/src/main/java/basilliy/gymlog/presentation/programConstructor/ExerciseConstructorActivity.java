@@ -1,5 +1,6 @@
 package basilliy.gymlog.presentation.programConstructor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +14,7 @@ import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Exercise;
 import basilliy.gymlog.presentation.utils.RecyclerDragAndSwipe;
 
-public class ExerciseConstructorActivity extends ConstructorActivity {
+public class ExerciseConstructorActivity extends ConstructorActivity implements ApproachConstructorDialog.OnApproachListener {
 
     public static final String KEY_EXERCISE = "key_exercise";
     public static final String KEY_POSITION = "key_position";
@@ -42,12 +43,37 @@ public class ExerciseConstructorActivity extends ConstructorActivity {
     }
 
     @Override
-    public void onClickFloatButton() {
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra(KEY_EXERCISE, exercise);
+        intent.putExtra(KEY_POSITION, getIntent().getIntExtra(KEY_POSITION, -1));
+        setResult(RESULT_OK, intent);
+        super.onBackPressed();
+    }
 
+    @Override
+    public void onClickFloatButton() {
+        ApproachConstructorDialog
+                .newInstance(exercise.getStore().getMeasure())
+                .show(getSupportFragmentManager(), "tag");
     }
 
     private void onClickItem(Approach approach, int position) {
+        ApproachConstructorDialog
+                .newInstance(approach, position, exercise.getStore().getMeasure())
+                .show(getSupportFragmentManager(), "tag");
+    }
 
+    @Override
+    public void onApproach(Approach approach, int position) {
+        if (position == -1) {
+            exercise.getApproachList().add(approach);
+            adapter.notifyItemInserted(exercise.getApproachList().size() - 1);
+        } else {
+            exercise.getApproachList().remove(position);
+            exercise.getApproachList().add(position, approach);
+            adapter.notifyItemChanged(position);
+        }
     }
 
 

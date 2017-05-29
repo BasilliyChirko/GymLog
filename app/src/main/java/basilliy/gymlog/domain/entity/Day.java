@@ -18,6 +18,13 @@ public class Day extends RealmObject implements ID, Parcelable {
 
     public Day() {}
 
+    protected Day(Parcel in) {
+        id = in.readLong();
+        name = in.readString();
+        exerciseList = new RealmList<>();
+        in.readTypedList(exerciseList, Exercise.CREATOR);
+    }
+
     public static final Creator<Day> CREATOR = new Creator<Day>() {
         @Override
         public Day createFromParcel(Parcel in) {
@@ -63,19 +70,16 @@ public class Day extends RealmObject implements ID, Parcelable {
                 '}';
     }
 
+
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    protected Day(Parcel in) {
-        id = in.readLong();
-        name = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeString(name);
+        dest.writeTypedList(exerciseList);
     }
 }
