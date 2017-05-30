@@ -24,6 +24,10 @@ class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         this.context = context;
     }
 
+    public void setData(RealmList<Day> data) {
+        this.data = data;
+    }
+
     @Override
     public DayViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new DayViewHolder(inflater.inflate(R.layout.element_day_detail, parent, false));
