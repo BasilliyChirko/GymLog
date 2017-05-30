@@ -21,17 +21,21 @@ import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Program;
 import basilliy.gymlog.presentation.navigation.FragmentOnRoot;
+import basilliy.gymlog.presentation.navigation.NavigationActivity;
 import basilliy.gymlog.presentation.programConstructor.ProgramConstructorActivity;
 import io.realm.RealmResults;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class ProgramListFragment extends FragmentOnRoot {
+
+    public static final int REQUEST_START_PROGRAM = 4213;
 
     private ArrayList<Program> data;
     private ProgramListAdapter adapter;
     private boolean flag;
     private View label;
-    private RecyclerView list;
 
 
     @Override
@@ -47,21 +51,17 @@ public class ProgramListFragment extends FragmentOnRoot {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initRootActivityElement();
-        return inflater.inflate(R.layout.fragment_program_list, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_program_list, container, false);
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (data.isEmpty()) {
-            label = view.findViewById(R.id.label_empty);
-            label.setVisibility(View.VISIBLE);
-        } else {
-            list = (RecyclerView) view.findViewById(R.id.recycler_view);
-            adapter = new ProgramListAdapter();
-            list.setAdapter(adapter);
-            list.setItemAnimator(new DefaultItemAnimator());
-            list.setLayoutManager(new LinearLayoutManager(getContext()));
-        }
+        RecyclerView list = (RecyclerView) view.findViewById(R.id.recycler_view);
+        adapter = new ProgramListAdapter();
+        list.setAdapter(adapter);
+        list.setItemAnimator(new DefaultItemAnimator());
+        list.setLayoutManager(new LinearLayoutManager(getContext()));
+        label = view.findViewById(R.id.label_empty);
+
+        if (data.isEmpty()) label.setVisibility(View.VISIBLE);
+        return view;
     }
 
     @Override
@@ -71,13 +71,7 @@ public class ProgramListFragment extends FragmentOnRoot {
             data = new ArrayList<>();
             RealmResults<Program> all = App.getProgramService().getAll();
             data.addAll(all);
-
-            if (adapter == null) {
-                adapter = new ProgramListAdapter();
-                list.setAdapter(adapter);
-            } else {
-                adapter.notifyDataSetChanged();
-            }
+            adapter.notifyDataSetChanged();
 
             if (data.isEmpty()) label.setVisibility(View.VISIBLE);
         }
@@ -99,6 +93,14 @@ public class ProgramListFragment extends FragmentOnRoot {
                 createNewProgram();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_START_PROGRAM && resultCode == RESULT_OK) {
+            ((NavigationActivity) getActivity()).setPage(NavigationActivity.PROGRAM_ACTIVE);
+        }
     }
 
     private void showPopup(View view, final Program program, final int position) {
@@ -149,7 +151,7 @@ public class ProgramListFragment extends FragmentOnRoot {
     private void openProgram(Program program) {
         Intent intent = new Intent(getContext(), ProgramActivity.class);
         intent.putExtra(ProgramActivity.KEY_PROGRAM, program);
-        getActivity().startActivity(intent);
+        getActivity().startActivityForResult(intent, REQUEST_START_PROGRAM);
     }
 
     private class ProgramListViewHolder extends RecyclerView.ViewHolder {

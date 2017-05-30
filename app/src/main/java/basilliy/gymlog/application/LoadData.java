@@ -1,13 +1,12 @@
 package basilliy.gymlog.application;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.util.Log;
 
 import basilliy.gymlog.R;
 import basilliy.gymlog.application.service.ExerciseStoreService;
 import basilliy.gymlog.application.service.Service;
+import basilliy.gymlog.domain.entity.ActiveProgram;
 import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Exercise;
@@ -16,13 +15,12 @@ import basilliy.gymlog.domain.entity.Measure;
 import basilliy.gymlog.domain.entity.Program;
 import basilliy.gymlog.domain.repository.Repository;
 import basilliy.gymlog.utils.Config;
-import basilliy.gymlog.utils.D;
 import io.realm.RealmResults;
 
 public class LoadData {
 
     public static void load() {
-        SharedPreferences preferences = App.getContext().getSharedPreferences(Config.pref.name, Context.MODE_PRIVATE);
+        SharedPreferences preferences = App.getPreferences();
 
         if (preferences.getBoolean(Config.pref.firstLoad, true)) {
             App.getRepository(Program.class).deleteAll();
@@ -31,6 +29,7 @@ public class LoadData {
             App.getRepository(ExerciseStore.class).deleteAll();
             App.getRepository(Approach.class).deleteAll();
             App.getRepository(Measure.class).deleteAll();
+            App.getRepository(ActiveProgram.class).deleteAll();
 
             loadMeasure();
             loadExerciseStore();
@@ -41,19 +40,20 @@ public class LoadData {
 
     private static void loadMeasure() {
         Resources res = App.getContext().getResources();
-        Service<Measure> service = App.getMeasureService();
-        service.removeAll();
+        Repository<Measure> service = App.getRepository(Measure.class);
+        service.deleteAll();
 
-        addMeasure(service, res, R.string.meter);
-        addMeasure(service, res, R.string.centimeter);
-        addMeasure(service, res, R.string.kilometer);
-        addMeasure(service, res, R.string.kilogram);
-        addMeasure(service, res, R.string.second);
+        addMeasure(service, res, 1, R.string.meter);
+        addMeasure(service, res, 2, R.string.centimeter);
+        addMeasure(service, res, 3, R.string.kilometer);
+        addMeasure(service, res, 4, R.string.kilogram);
+        addMeasure(service, res, 5, R.string.second);
     }
 
-    private static void addMeasure(Service<Measure> service, Resources res, int nameID) {
+    private static void addMeasure(Repository<Measure> service, Resources res, int id, int nameID) {
         Measure measure = new Measure();
         measure.setName(res.getString(nameID));
+        measure.setId(id);
         service.persist(measure);
     }
 

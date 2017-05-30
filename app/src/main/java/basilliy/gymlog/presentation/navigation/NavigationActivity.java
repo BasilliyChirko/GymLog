@@ -27,10 +27,18 @@ import basilliy.gymlog.presentation.programList.ProgramListFragment;
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, RootActivity {
 
+    public static final int PROGRAM_ACTIVE = 0;
+    public static final int PROGRAM_LIST = 1;
+    public static final int EXERCISE = 2;
+    public static final int MEASURE = 3;
+    public static final int CALENDAR = 4;
+    public static final int GRAPH = 5;
+
     private BackPressedListener backPressedListener;
     private Fragment fragment;
     private FrameLayout toolbarContent;
     private FloatingActionButton floatButton;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +63,12 @@ public class NavigationActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        initContent();
+        setPage(PROGRAM_LIST);
     }
     
-    private void initContent() {
-        setContentFragment(R.id.nav_program_list);
-        
-    }
 
     @Override
     public void onBackPressed() {
@@ -86,6 +90,20 @@ public class NavigationActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setPage(int number) {
+        int id = 0;
+        switch (number) {
+            case PROGRAM_ACTIVE: id = R.id.nav_program_active; break;
+            case PROGRAM_LIST: id = R.id.nav_program_list; break;
+            case EXERCISE: id = R.id.nav_exercise; break;
+            case MEASURE: id = R.id.nav_measure; break;
+            case CALENDAR: id = R.id.nav_calendar; break;
+            case GRAPH: id = R.id.nav_graph; break;
+        }
+        navigationView.getMenu().getItem(number).setChecked(true);
+        setContentFragment(id);
     }
 
     private void setContentFragment(int id) {

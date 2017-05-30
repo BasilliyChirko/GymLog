@@ -1,12 +1,18 @@
 package basilliy.gymlog.presentation.programList;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import basilliy.gymlog.R;
 import basilliy.gymlog.application.App;
@@ -38,7 +44,6 @@ public class ProgramActivity extends SecondActivity {
         list.setAdapter(adapter);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.element_program_list, menu);
@@ -59,25 +64,8 @@ public class ProgramActivity extends SecondActivity {
         }
     }
 
-    private void removeProgram() {
-        Service<Program> programService = App.getProgramService();
-        programService.persist(program);
-        programService.remove(program);
-
-        Intent intent = new Intent();
-        setResult(RESULT_OK, intent);
-        finish();
-    }
-
-    private void editProgram(Program program) {
-        Intent intent = new Intent(this, ProgramConstructorActivity.class);
-        intent.putExtra(ProgramConstructorActivity.KEY_PROGRAM, program);
-        startActivityForResult(intent, REQUEST);
-    }
-
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST && resultCode == RESULT_OK) {
             program = data.getParcelableExtra(ProgramConstructorActivity.KEY_PROGRAM);
@@ -94,7 +82,44 @@ public class ProgramActivity extends SecondActivity {
 
     @Override
     public void onClickFloatButton() {
-
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog picker = new DatePickerDialog(
+                this,
+                R.style.AppTheme_PickerDialog,
+                onDateSetListener,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        picker.show();
+        Toast.makeText(this, "Выберите дату начала тренировки", Toast.LENGTH_LONG).show();
     }
 
+    DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, dayOfMonth, 0, 0, 0);
+            Date date = calendar.getTime();
+            App.getActiveProgramService().set(program, date);
+            setResult(RESULT_OK);
+            finish();
+        }
+    };
+
+    private void removeProgram() {
+        Service<Program> programService = App.getProgramService();
+        programService.persist(program);
+        programService.remove(program);
+
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    private void editProgram(Program program) {
+        Intent intent = new Intent(this, ProgramConstructorActivity.class);
+        intent.putExtra(ProgramConstructorActivity.KEY_PROGRAM, program);
+        startActivityForResult(intent, REQUEST);
+    }
 }
