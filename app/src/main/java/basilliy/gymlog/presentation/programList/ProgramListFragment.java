@@ -1,6 +1,5 @@
 package basilliy.gymlog.presentation.programList;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,10 +27,10 @@ import io.realm.RealmResults;
 
 public class ProgramListFragment extends FragmentOnRoot {
 
-    private static final int REQUEST_CREATE = 1322;
-    private static final int REQUEST_EDIT = 5212;
     private ArrayList<Program> data;
     private ProgramListAdapter adapter;
+    private boolean flag;
+    private View label;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +38,7 @@ public class ProgramListFragment extends FragmentOnRoot {
         data = new ArrayList<>();
         RealmResults<Program> all = App.getProgramService().getAll();
         data.addAll(all);
+        flag = true;
     }
 
     @Nullable
@@ -51,7 +51,8 @@ public class ProgramListFragment extends FragmentOnRoot {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         if (data.isEmpty()) {
-            view.findViewById(R.id.label_empty).setVisibility(View.VISIBLE);
+            label = view.findViewById(R.id.label_empty);
+            label.setVisibility(View.VISIBLE);
         } else {
             RecyclerView list = (RecyclerView) view.findViewById(R.id.recycler_view);
             adapter = new ProgramListAdapter();
@@ -59,6 +60,20 @@ public class ProgramListFragment extends FragmentOnRoot {
             list.setItemAnimator(new DefaultItemAnimator());
             list.setLayoutManager(new LinearLayoutManager(getContext()));
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!flag) {
+            data = new ArrayList<>();
+            RealmResults<Program> all = App.getProgramService().getAll();
+            data.addAll(all);
+            adapter.notifyDataSetChanged();
+
+            if (data.isEmpty()) label.setVisibility(View.VISIBLE);
+        }
+        flag = false;
     }
 
     @Override
@@ -78,22 +93,6 @@ public class ProgramListFragment extends FragmentOnRoot {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CREATE && resultCode == Activity.RESULT_OK) {
-            Program program = data.getParcelableExtra(ProgramConstructorActivity.KEY_PROGRAM);
-            this.data.add(program);
-            adapter.notifyItemInserted(this.data.size() - 1);
-        } else if (requestCode == REQUEST_EDIT && resultCode == Activity.RESULT_OK) {
-            Program program = data.getParcelableExtra(ProgramConstructorActivity.KEY_PROGRAM);
-            int position = data.getIntExtra(ProgramConstructorActivity.KEY_POSITION, -1);
-            this.data.remove(position);
-            this.data.add(position, program);
-            adapter.notifyItemChanged(position);
-        }
-    }
-
     private void showPopup(View view, final Program program, final int position) {
         PopupMenu popup = new PopupMenu(getContext(), view);
         popup.inflate(R.menu.element_program_list);
@@ -102,7 +101,7 @@ public class ProgramListFragment extends FragmentOnRoot {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.edit:
-                        editProgram(program, position);
+                        editProgram(program);
                         return true;
                     case R.id.remove:
                         removeProgram(program, position);
@@ -124,7 +123,7 @@ public class ProgramListFragment extends FragmentOnRoot {
 
     private void createNewProgram() {
         Intent intent = new Intent(getContext(), ProgramConstructorActivity.class);
-        getActivity().startActivityForResult(intent, REQUEST_CREATE);
+        getActivity().startActivity(intent);
     }
 
     private void removeProgram(Program program, int position) {
@@ -133,19 +132,24 @@ public class ProgramListFragment extends FragmentOnRoot {
         adapter.notifyItemRemoved(position);
     }
 
-    private void editProgram(Program program, int position) {
+    private void editProgram(Program program) {
         Intent intent = new Intent(getContext(), ProgramConstructorActivity.class);
         intent.putExtra(ProgramConstructorActivity.KEY_PROGRAM, program);
-        intent.putExtra(ProgramConstructorActivity.KEY_POSITION, position);
-        getActivity().startActivityForResult(intent, REQUEST_EDIT);
+        getActivity().startActivity(intent);
+    }
+
+    private void openProgram(Program program) {
+        Intent intent = new Intent(getContext(), ProgramActivity.class);
+        intent.putExtra(ProgramActivity.KEY_PROGRAM, program);
+        getActivity().startActivity(intent);
     }
 
     private class ProgramListViewHolder extends RecyclerView.ViewHolder {
-
         TextView name;
         TextView days;
         TextView daysWork;
         View more;
+        View view;
 
         ProgramListViewHolder(View v) {
             super(v);
@@ -153,6 +157,7 @@ public class ProgramListFragment extends FragmentOnRoot {
             days = (TextView) v.findViewById(R.id.day_count);
             daysWork = (TextView) v.findViewById(R.id.day_work);
             more = v.findViewById(R.id.more);
+            view = v;
         }
     }
 
@@ -182,6 +187,13 @@ public class ProgramListFragment extends FragmentOnRoot {
                 @Override
                 public void onClick(View v) {
                     showPopup(holder.more, program, holder.getAdapterPosition());
+                }
+            });
+
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openProgram(program);
                 }
             });
         }

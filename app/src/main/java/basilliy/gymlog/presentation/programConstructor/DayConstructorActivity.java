@@ -10,14 +10,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import basilliy.gymlog.R;
-import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Exercise;
 import basilliy.gymlog.domain.entity.ExerciseStore;
+import basilliy.gymlog.presentation.utils.SecondActivity;
 import basilliy.gymlog.presentation.utils.RecyclerDragAndSwipe;
 
 
-public class DayConstructorActivity extends ConstructorActivity {
+public class DayConstructorActivity extends SecondActivity {
 
     public static final String KEY_DAY = "key_day";
     public static final String KEY_POSITION = "key_position";
@@ -135,7 +135,7 @@ public class DayConstructorActivity extends ConstructorActivity {
             holder.value.setVisibility(showInfo ? View.VISIBLE : View.GONE);
 
             holder.approach.setText("Подходов: " + exercise.getApproachList().size());
-            holder.reps.setText("Повторений: " + exercise.getRepsString());
+            holder.reps.setText("Повторения: " + exercise.getRepsString());
             holder.value.setText("Нагрузка: " + exercise.getValueString());
 
             holder.view.setOnClickListener(new View.OnClickListener() {

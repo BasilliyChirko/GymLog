@@ -3,36 +3,27 @@ package basilliy.gymlog.presentation.programConstructor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import basilliy.gymlog.R;
 import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Exercise;
 import basilliy.gymlog.domain.entity.Program;
+import basilliy.gymlog.presentation.utils.SecondActivity;
 import basilliy.gymlog.presentation.utils.RecyclerDragAndSwipe;
 import basilliy.gymlog.utils.D;
-import io.realm.RealmList;
 
-public class ProgramConstructorActivity extends ConstructorActivity {
+public class ProgramConstructorActivity extends SecondActivity {
 
     public static final String KEY_PROGRAM = "key_program";
-    public static final String KEY_POSITION = "key_position";
     public static final int REQUEST = 1001;
 
     private Program program;
@@ -76,8 +67,6 @@ public class ProgramConstructorActivity extends ConstructorActivity {
                 App.getProgramService().persist(program);
                 Intent intent = new Intent();
                 intent.putExtra(KEY_PROGRAM, program);
-                if (getIntent().hasExtra(KEY_POSITION))
-                    intent.putExtra(KEY_POSITION, getIntent().getIntExtra(KEY_POSITION, -1));
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -85,6 +74,9 @@ public class ProgramConstructorActivity extends ConstructorActivity {
     };
 
     private boolean checkProgram(Program program) {
+        if (program.getDayList().size() == 0)
+            finish();
+
         String name = program.getName();
         if (name == null || name.isEmpty()) {
             D.toast("Введи название тренировки");

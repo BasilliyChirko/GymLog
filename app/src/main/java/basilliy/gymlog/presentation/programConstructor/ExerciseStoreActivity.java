@@ -16,9 +16,10 @@ import java.util.ArrayList;
 import basilliy.gymlog.R;
 import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.entity.ExerciseStore;
+import basilliy.gymlog.presentation.utils.SecondActivity;
 import io.realm.RealmResults;
 
-public class ExerciseStoreActivity extends ConstructorActivity {
+public class ExerciseStoreActivity extends SecondActivity {
 
     public static final int REQUEST = 1453;
     public static final String KEY_EXERCISE = "key_exercise";

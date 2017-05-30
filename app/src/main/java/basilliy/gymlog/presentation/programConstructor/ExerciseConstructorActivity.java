@@ -12,9 +12,10 @@ import android.widget.TextView;
 import basilliy.gymlog.R;
 import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Exercise;
+import basilliy.gymlog.presentation.utils.SecondActivity;
 import basilliy.gymlog.presentation.utils.RecyclerDragAndSwipe;
 
-public class ExerciseConstructorActivity extends ConstructorActivity implements ApproachConstructorDialog.OnApproachListener {
+public class ExerciseConstructorActivity extends SecondActivity implements ApproachConstructorDialog.OnApproachListener {
 
     public static final String KEY_EXERCISE = "key_exercise";
     public static final String KEY_POSITION = "key_position";

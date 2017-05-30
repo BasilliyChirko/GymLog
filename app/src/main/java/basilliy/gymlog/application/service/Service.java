@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import basilliy.gymlog.application.App;
+import basilliy.gymlog.domain.entity.Exercise;
 import basilliy.gymlog.utils.Config;
 import io.realm.RealmList;
 import io.realm.RealmObject;
@@ -61,10 +62,14 @@ public abstract class Service<T extends RealmObject> {
                 if (service == null) return;
                 int size = innerList.size();
                 for (int i = 0; i < size; i++) {
-                    service.remove(innerList.get(0));
+                    service.remove(innerList.get(i));
                 }
             }
-            App.getRepository(clazz).delete(getId(object));
+            try {
+                App.getRepository(clazz).delete(getId(object));
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
 
 
         } catch (Exception e) {
