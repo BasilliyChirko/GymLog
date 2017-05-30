@@ -75,6 +75,7 @@ public class ProgramActivity extends SecondActivity {
         startActivityForResult(intent, REQUEST);
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -92,6 +93,8 @@ public class ProgramActivity extends SecondActivity {
     }
 
     @Override
-    public void onClickFloatButton() {}
+    public void onClickFloatButton() {
+
+    }
 
 }

@@ -31,6 +31,8 @@ public class ProgramListFragment extends FragmentOnRoot {
     private ProgramListAdapter adapter;
     private boolean flag;
     private View label;
+    private RecyclerView list;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class ProgramListFragment extends FragmentOnRoot {
             label = view.findViewById(R.id.label_empty);
             label.setVisibility(View.VISIBLE);
         } else {
-            RecyclerView list = (RecyclerView) view.findViewById(R.id.recycler_view);
+            list = (RecyclerView) view.findViewById(R.id.recycler_view);
             adapter = new ProgramListAdapter();
             list.setAdapter(adapter);
             list.setItemAnimator(new DefaultItemAnimator());
@@ -69,7 +71,13 @@ public class ProgramListFragment extends FragmentOnRoot {
             data = new ArrayList<>();
             RealmResults<Program> all = App.getProgramService().getAll();
             data.addAll(all);
-            adapter.notifyDataSetChanged();
+
+            if (adapter == null) {
+                adapter = new ProgramListAdapter();
+                list.setAdapter(adapter);
+            } else {
+                adapter.notifyDataSetChanged();
+            }
 
             if (data.isEmpty()) label.setVisibility(View.VISIBLE);
         }
