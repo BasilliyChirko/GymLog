@@ -13,8 +13,17 @@ public class ActiveProgramService {
     private Repository<ActiveProgram> repository = App.getRepository(ActiveProgram.class);
 
     public ActiveProgram get() {
-        RealmResults<ActiveProgram> all = repository.findAll();
-        if (all.size() > 0) return all.get(0);
+        try {
+            RealmResults<ActiveProgram> all = repository.findAll();
+            if (all.size() > 0) {
+                ActiveProgram activeProgram = all.get(0);
+                if (activeProgram.getProgram() == null)
+                    throw new Exception();
+                return activeProgram;
+            }
+        } catch (Exception e) {
+            remove();
+        }
         return null;
     }
 

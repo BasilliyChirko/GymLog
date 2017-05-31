@@ -38,10 +38,12 @@ class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         Day day = data.get(position);
         if (day.getExerciseList().size() > 0) {
             holder.name.setText("День " + (position + 1) + ": " + day.getName());
+            holder.list.setVisibility(View.VISIBLE);
             holder.list.setAdapter(new ExerciseAdapter(inflater, day.getExerciseList()));
             holder.list.setLayoutManager(new LinearLayoutManager(context));
         } else {
             holder.name.setText("Отдых");
+            holder.list.setVisibility(View.GONE);
         }
     }
 
