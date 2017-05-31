@@ -27,4 +27,22 @@
     <string name="empty_approach_list">Список подходов пуст</string>
     <string name="edit">Редатировать</string>
     <string name="remove">Удалить</string>
+    <string name="program_active">Активная тренировка</string>
+    <string name="program_not_activate">Активная тренировка не выбрана. Перейдите в Список тренировок и активируте тренировку</string>
+    <string name="cancel">Отменить</string>
+
+    <string-array name="month_name">
+        <item>Января</item>
+        <item>Февраля</item>
+        <item>Марта</item>
+        <item>Фпреля</item>
+        <item>Мая</item>
+        <item>Июня</item>
+        <item>Июля</item>
+        <item>Августа</item>
+        <item>Сентября</item>
+        <item>Октября</item>
+        <item>Ноября</item>
+        <item>Декабря</item>
+    </string-array>
 </resources>

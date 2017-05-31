@@ -3,7 +3,7 @@ package basilliy.gymlog.utils;
 public interface Config {
     interface database {
         String name = "main_db";
-        int version = 14;
+        int version = 15;
     }
 
     interface pref {

@@ -101,6 +101,7 @@ public class ProgramActivity extends SecondActivity implements ChangeableDialog.
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, month, dayOfMonth, 0, 0, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
             date = calendar.getTime();
 
             ChangeableDialog.newInstance().show(getSupportFragmentManager(), "tag");

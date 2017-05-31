@@ -11,13 +11,17 @@ import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.repository.ID;
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 public class Exercise extends RealmObject implements ID, Parcelable {
 
     @PrimaryKey
-    protected long id;private ExerciseStore store;
+    protected long id;
+    private ExerciseStore store;
     private RealmList<Approach> approachList = new RealmList<>();
+    @Ignore
+    private boolean done;
 
     public Exercise(){}
 
@@ -104,4 +108,21 @@ public class Exercise extends RealmObject implements ID, Parcelable {
         dest.writeParcelable(store, flags);
         dest.writeTypedList(approachList);
     }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
+    public void increaseApproachValue() {
+        // TODO: 31.05.2017
+    }
+
+    public void decreaseApproachValue() {
+        // TODO: 31.05.2017
+    }
+
 }
