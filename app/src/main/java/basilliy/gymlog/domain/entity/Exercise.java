@@ -78,7 +78,7 @@ public class Exercise extends RealmObject implements ID, Parcelable {
             return "";
         StringBuilder builder = new StringBuilder();
         for (Approach approach : getApproachList())
-            builder.append(approach.getReps()).append("-");
+            builder.append((long)approach.getReps()).append("-");
         String s = builder.toString();
         return s.substring(0, s.length() - 1);
     }
@@ -88,7 +88,7 @@ public class Exercise extends RealmObject implements ID, Parcelable {
             return "";
         StringBuilder builder = new StringBuilder();
         for (Approach approach : getApproachList())
-            builder.append(approach.getValue()).append("-");
+            builder.append((long)approach.getValue()).append("-");
         String s = builder.toString();
         return s.substring(0, s.length() - 1);
     }
