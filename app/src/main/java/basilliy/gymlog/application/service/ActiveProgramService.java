@@ -18,11 +18,12 @@ public class ActiveProgramService {
         return null;
     }
 
-    public ActiveProgram set(Program program, Date dateStart) {
+    public ActiveProgram set(Program program, Date dateStart, boolean changeable) {
         if (program.getId() <= 0) throw new RuntimeException("Program without id");
         ActiveProgram activeProgram = new ActiveProgram();
         activeProgram.setProgram(program);
         activeProgram.setDateStart(dateStart);
+        activeProgram.setChangeable(changeable);
 
         repository.deleteAll();
         repository.persist(activeProgram);

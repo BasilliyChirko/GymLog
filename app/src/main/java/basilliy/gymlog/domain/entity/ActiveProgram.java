@@ -11,6 +11,7 @@ public class ActiveProgram extends RealmObject {
     private long id = 13;
     private Program program;
     private Date dateStart;
+    private boolean changeable;
 
     public Program getProgram() {
         return program;
@@ -34,5 +35,13 @@ public class ActiveProgram extends RealmObject {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public boolean isChangeable() {
+        return changeable;
+    }
+
+    public void setChangeable(boolean changeable) {
+        this.changeable = changeable;
     }
 }

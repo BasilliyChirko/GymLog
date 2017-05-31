@@ -21,7 +21,7 @@ import basilliy.gymlog.domain.entity.Program;
 import basilliy.gymlog.presentation.programConstructor.ProgramConstructorActivity;
 import basilliy.gymlog.presentation.utils.SecondActivity;
 
-public class ProgramActivity extends SecondActivity {
+public class ProgramActivity extends SecondActivity implements ChangeableDialog.ChangeableDialogListener {
 
     public static final String KEY_PROGRAM = "key_program";
     private static final int REQUEST = 1244;
@@ -29,6 +29,7 @@ public class ProgramActivity extends SecondActivity {
     private Program program;
     private TextView name;
     private DayAdapter adapter;
+    private Date date;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,12 +101,22 @@ public class ProgramActivity extends SecondActivity {
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, month, dayOfMonth, 0, 0, 0);
-            Date date = calendar.getTime();
-            App.getActiveProgramService().set(program, date);
-            setResult(RESULT_OK);
-            finish();
+            date = calendar.getTime();
+
+            ChangeableDialog.newInstance().show(getSupportFragmentManager(), "tag");
         }
     };
+
+    @Override
+    public void onSetChangeable(boolean changeable) {
+        activatedProgram(date, changeable);
+    }
+
+    private void activatedProgram(Date date, boolean changeable){
+        App.getActiveProgramService().set(program, date, changeable);
+        setResult(RESULT_OK);
+        finish();
+    }
 
     private void removeProgram() {
         Service<Program> programService = App.getProgramService();
@@ -122,4 +133,7 @@ public class ProgramActivity extends SecondActivity {
         intent.putExtra(ProgramConstructorActivity.KEY_PROGRAM, program);
         startActivityForResult(intent, REQUEST);
     }
+
+
+
 }
