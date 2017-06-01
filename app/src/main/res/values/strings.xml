@@ -30,6 +30,7 @@
     <string name="program_active">Активная тренировка</string>
     <string name="program_not_activate">Активная тренировка не выбрана. Перейдите в Список тренировок и активируте тренировку</string>
     <string name="cancel">Отменить</string>
+    <string name="finish_exercise">Завершить</string>
 
     <string-array name="month_name">
         <item>Января</item>

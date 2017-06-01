@@ -3,6 +3,9 @@ package basilliy.gymlog.presentation.programActive;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,14 +23,16 @@ import basilliy.gymlog.R;
 import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.entity.ActiveProgram;
 import basilliy.gymlog.domain.entity.Day;
+import basilliy.gymlog.domain.entity.Exercise;
 import basilliy.gymlog.domain.entity.Program;
 import basilliy.gymlog.presentation.navigation.FragmentOnRoot;
 import basilliy.gymlog.presentation.navigation.NavigationActivity;
 
 
-public class ProgramActiveFragment extends FragmentOnRoot {
+public class ProgramActiveFragment extends FragmentOnRoot implements ActiveExerciseAdapter.OnExerciseDoneListener {
 
     private ActiveProgram program;
+    private ActiveExerciseAdapter adapter;
 
     private View cancel;
 
@@ -49,7 +54,7 @@ public class ProgramActiveFragment extends FragmentOnRoot {
         if (program != null) {
             Day day = program.getWorkDay(Calendar.getInstance());
             if (day == null || day.getExerciseList().isEmpty()) displayNextDate(label);
-            else displayDay(day);
+            else displayDay(day, v);
         }
     }
 
@@ -62,10 +67,18 @@ public class ProgramActiveFragment extends FragmentOnRoot {
         label.setText(s);
     }
 
-    private void displayDay(Day day) {
-
+    private void displayDay(Day day, View view) {
+        RecyclerView list = (RecyclerView) view.findViewById(R.id.list);
+        list.setLayoutManager(new LinearLayoutManager(getContext()));
+        list.setItemAnimator(new DefaultItemAnimator());
+        adapter = new ActiveExerciseAdapter(day, getActivity().getLayoutInflater(), getContext(), this);
+        list.setAdapter(adapter);
     }
 
+    @Override
+    public void onExerciseDoneClick(Exercise exercise, int position) {
+
+    }
 
     @Override
     public View getToolbarContent(LayoutInflater inflater) {
@@ -88,7 +101,7 @@ public class ProgramActiveFragment extends FragmentOnRoot {
 
     @Override
     public void initFloatButton(FloatingActionButton actionButton) {
-        setFloatButtonVisible(true);
+        setFloatButtonVisible(false);
     }
 
     public static ProgramActiveFragment newInstance() {
@@ -97,4 +110,6 @@ public class ProgramActiveFragment extends FragmentOnRoot {
         fragment.setArguments(args);
         return fragment;
     }
+
+
 }
