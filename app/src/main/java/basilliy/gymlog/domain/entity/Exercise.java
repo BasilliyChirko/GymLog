@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.repository.ID;
+import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
@@ -113,7 +114,10 @@ public class Exercise extends RealmObject implements ID, Parcelable {
     }
 
     public void setDone(boolean done) {
+        Realm realm = App.getRealm();
+        realm.beginTransaction();
         this.done = done;
+        realm.commitTransaction();
     }
 
     public void increaseApproachValue() {

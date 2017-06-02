@@ -1,6 +1,7 @@
 package basilliy.gymlog.presentation.programActive;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -39,12 +40,15 @@ class ActiveExerciseAdapter extends RecyclerView.Adapter<ActiveExerciseAdapter.V
 
         if (exercise.isDone()) {
             holder.name.setText(D.stroke(exercise.getStore().getName()));
+            holder.name.setPaintFlags(holder.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             holder.list.setVisibility(View.GONE);
+            holder.done.setVisibility(View.GONE);
         } else {
             holder.name.setText(exercise.getStore().getName());
             holder.list.setVisibility(View.VISIBLE);
             holder.list.setAdapter(new ActiveApproachAdapter(exercise, inflater));
             holder.list.setLayoutManager(new LinearLayoutManager(context));
+            holder.done.setVisibility(View.VISIBLE);
             holder.done.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

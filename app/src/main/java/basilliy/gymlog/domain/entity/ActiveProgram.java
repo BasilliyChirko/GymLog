@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import basilliy.gymlog.application.App;
+import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -45,7 +47,10 @@ public class ActiveProgram extends RealmObject {
     }
 
     public void setChangeable(boolean changeable) {
+        Realm realm = App.getRealm();
+        realm.beginTransaction();
         this.changeable = changeable;
+        realm.commitTransaction();
     }
 
     public Day getWorkDay(Calendar current) {

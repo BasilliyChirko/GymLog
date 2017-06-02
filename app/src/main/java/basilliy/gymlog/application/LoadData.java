@@ -15,12 +15,16 @@ import basilliy.gymlog.domain.entity.Measure;
 import basilliy.gymlog.domain.entity.Program;
 import basilliy.gymlog.domain.repository.Repository;
 import basilliy.gymlog.utils.Config;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class LoadData {
 
     public static void load() {
         SharedPreferences preferences = App.getPreferences();
+
+        // TODO: 02.06.2017 delete release
+        preferences.edit().putBoolean(Config.pref.firstLoad, true).apply();
 
         if (preferences.getBoolean(Config.pref.firstLoad, true)) {
             App.getRepository(Program.class).deleteAll();
@@ -33,6 +37,7 @@ public class LoadData {
 
             loadMeasure();
             loadExerciseStore();
+            loadTestData();
 
             preferences.edit().putBoolean(Config.pref.firstLoad, false).apply();
         }
@@ -1065,18 +1070,241 @@ public class LoadData {
     }
 
     private static void loadTestData() {
-        Service<Program> service = App.getProgramService();
-        Program program;
 
-        program = new Program();
-        program.setName("Hay");
-        service.persist(program);
+        RealmResults<ExerciseStore> stores = App.getExerciseStoreService().getAll();
 
-        program = new Program();
-        program.setName("Gay");
-        service.persist(program);
+        Program p;
+        Day d;
+        Exercise e;
+        Approach a;
 
-        RealmResults<Program> all = service.getAll();
-        all.isEmpty();
+        RealmList<Day> dayList;
+        RealmList<Exercise> exerciseList;
+        RealmList<Approach> approachList;
+
+        p = new Program();
+        p.setName("Животные");
+
+        dayList = p.getDayList();
+
+        d = new Day();
+        d.setName("Мяу");
+        dayList.add(d);
+
+        exerciseList = d.getExerciseList();
+
+        e = new Exercise();
+        e.setStore(stores.get(1));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        e = new Exercise();
+        e.setStore(stores.get(2));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+
+        e = new Exercise();
+        e.setStore(stores.get(3));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+
+        d = new Day();
+        d.setName("");
+        dayList.add(d);
+
+        d = new Day();
+        d.setName("Гав");
+        dayList.add(d);
+
+        exerciseList = d.getExerciseList();
+
+        e = new Exercise();
+        e.setStore(stores.get(4));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        e = new Exercise();
+        e.setStore(stores.get(5));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        e = new Exercise();
+        e.setStore(stores.get(6));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+
+        d = new Day();
+        d.setName("");
+        dayList.add(d);
+
+        d = new Day();
+        d.setName("Муу");
+        dayList.add(d);
+
+        exerciseList = d.getExerciseList();
+
+        e = new Exercise();
+        e.setStore(stores.get(7));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        e = new Exercise();
+        e.setStore(stores.get(8));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        e = new Exercise();
+        e.setStore(stores.get(9));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        App.getProgramService().persist(p);
+
     }
 }

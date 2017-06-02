@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 
 public class SetExerciseResultDialog extends DialogFragment {
@@ -50,17 +51,12 @@ public class SetExerciseResultDialog extends DialogFragment {
         dismiss();
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof OnSetExerciseResultListener)
-            listener = (OnSetExerciseResultListener) activity;
-    }
 
-    public static SetExerciseResultDialog newInstance(int position) {
+    public static SetExerciseResultDialog newInstance(int position, OnSetExerciseResultListener listener) {
         Bundle args = new Bundle();
         args.putInt(KEY_POSITION, position);
         SetExerciseResultDialog fragment = new SetExerciseResultDialog();
+        fragment.listener = listener;
         fragment.setArguments(args);
         return fragment;
     }

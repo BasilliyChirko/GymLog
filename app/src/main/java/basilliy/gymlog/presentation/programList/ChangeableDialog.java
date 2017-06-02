@@ -31,7 +31,7 @@ public class ChangeableDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (listener != null)
-                            listener.onSetChangeable(true);
+                            listener.onSetChangeable(false);
                         dismiss();
                     }
                 })

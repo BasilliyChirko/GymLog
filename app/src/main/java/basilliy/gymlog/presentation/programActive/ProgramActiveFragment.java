@@ -18,6 +18,8 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import basilliy.gymlog.R;
 import basilliy.gymlog.application.App;
@@ -80,7 +82,7 @@ public class ProgramActiveFragment extends FragmentOnRoot
     @Override
     public void onExerciseDoneClick(int position) {
         if (program.isChangeable()) {
-            SetExerciseResultDialog.newInstance(position).show(getChildFragmentManager(), "tag");
+            SetExerciseResultDialog.newInstance(position, this).show(getFragmentManager(), "tag");
         } else finishExercise(position);
     }
 
@@ -135,7 +137,5 @@ public class ProgramActiveFragment extends FragmentOnRoot
         fragment.setArguments(args);
         return fragment;
     }
-
-
 
 }

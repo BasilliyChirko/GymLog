@@ -36,6 +36,7 @@ public class ActiveProgramService {
 
         repository.deleteAll();
         repository.persist(activeProgram);
+
         return get();
     }
 
