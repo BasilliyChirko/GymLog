@@ -20,7 +20,6 @@ public class Exercise extends RealmObject implements ID, Parcelable {
     protected long id;
     private ExerciseStore store;
     private RealmList<Approach> approachList = new RealmList<>();
-    @Ignore
     private boolean done;
 
     public Exercise(){}

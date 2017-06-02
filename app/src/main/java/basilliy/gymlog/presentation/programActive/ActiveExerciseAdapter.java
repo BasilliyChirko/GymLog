@@ -3,6 +3,7 @@ package basilliy.gymlog.presentation.programActive;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import basilliy.gymlog.R;
 import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Exercise;
+import basilliy.gymlog.utils.D;
 
 class ActiveExerciseAdapter extends RecyclerView.Adapter<ActiveExerciseAdapter.ViewHolder>{
 
@@ -33,17 +35,24 @@ class ActiveExerciseAdapter extends RecyclerView.Adapter<ActiveExerciseAdapter.V
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final Exercise exercise = day.getExerciseList().get(position);
-        holder.name.setText(exercise.getStore().getName());
-        holder.list.setAdapter(new ActiveApproachAdapter(exercise, inflater));
-        holder.list.setLayoutManager(new LinearLayoutManager(context));
-        holder.done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null)
-                    listener.onExerciseDoneClick(exercise, holder.getAdapterPosition());
-            }
-        });
+        Exercise exercise = day.getExerciseList().get(position);
+
+        if (exercise.isDone()) {
+            holder.name.setText(D.stroke(exercise.getStore().getName()));
+            holder.list.setVisibility(View.GONE);
+        } else {
+            holder.name.setText(exercise.getStore().getName());
+            holder.list.setVisibility(View.VISIBLE);
+            holder.list.setAdapter(new ActiveApproachAdapter(exercise, inflater));
+            holder.list.setLayoutManager(new LinearLayoutManager(context));
+            holder.done.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null)
+                        listener.onExerciseDoneClick(holder.getAdapterPosition());
+                }
+            });
+        }
     }
 
     @Override
@@ -65,7 +74,7 @@ class ActiveExerciseAdapter extends RecyclerView.Adapter<ActiveExerciseAdapter.V
         }
     }
 
-    public interface OnExerciseDoneListener {
-        void onExerciseDoneClick(Exercise exercise, int position);
+    interface OnExerciseDoneListener {
+        void onExerciseDoneClick(int position);
     }
 }

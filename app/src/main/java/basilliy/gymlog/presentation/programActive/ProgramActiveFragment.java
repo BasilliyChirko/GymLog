@@ -24,15 +24,17 @@ import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.entity.ActiveProgram;
 import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Exercise;
-import basilliy.gymlog.domain.entity.Program;
 import basilliy.gymlog.presentation.navigation.FragmentOnRoot;
 import basilliy.gymlog.presentation.navigation.NavigationActivity;
 
 
-public class ProgramActiveFragment extends FragmentOnRoot implements ActiveExerciseAdapter.OnExerciseDoneListener {
+public class ProgramActiveFragment extends FragmentOnRoot
+        implements ActiveExerciseAdapter.OnExerciseDoneListener,
+        SetExerciseResultDialog.OnSetExerciseResultListener {
 
     private ActiveProgram program;
     private ActiveExerciseAdapter adapter;
+    private Day day;
 
     private View cancel;
 
@@ -52,7 +54,7 @@ public class ProgramActiveFragment extends FragmentOnRoot implements ActiveExerc
         cancel.setVisibility(program == null ? View.GONE : View.VISIBLE);
 
         if (program != null) {
-            Day day = program.getWorkDay(Calendar.getInstance());
+            day = program.getWorkDay(Calendar.getInstance());
             if (day == null || day.getExerciseList().isEmpty()) displayNextDate(label);
             else displayDay(day, v);
         }
@@ -76,8 +78,31 @@ public class ProgramActiveFragment extends FragmentOnRoot implements ActiveExerc
     }
 
     @Override
-    public void onExerciseDoneClick(Exercise exercise, int position) {
+    public void onExerciseDoneClick(int position) {
+        if (program.isChangeable()) {
+            SetExerciseResultDialog.newInstance(position).show(getChildFragmentManager(), "tag");
+        } else finishExercise(position);
+    }
 
+    @Override
+    public void onSetExerciseResult(int result, int position) {
+        Exercise exercise = day.getExerciseList().get(position);
+        switch (result) {
+            case SetExerciseResultDialog.GOOD:
+                exercise.increaseApproachValue();
+                break;
+            case SetExerciseResultDialog.BAD:
+                exercise.decreaseApproachValue();
+                break;
+        }
+        finishExercise(position);
+    }
+
+    private void finishExercise(int position) {
+        if (day != null && !day.getExerciseList().isEmpty()) {
+            day.getExerciseList().get(position).setDone(true);
+            adapter.notifyItemChanged(position);
+        }
     }
 
     @Override
@@ -110,6 +135,7 @@ public class ProgramActiveFragment extends FragmentOnRoot implements ActiveExerc
         fragment.setArguments(args);
         return fragment;
     }
+
 
 
 }
