@@ -12,17 +12,32 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:egUseCubic="true"
-        app:egUseOverlapFill="true"
         app:egCurveSmoothness="0.2"
+        app:egLegendHeight="54dp"
         app:egIndicatorLineColor="#FE6DA8"
-        app:egLegendHeight="40dp"
+        app:egIndicatorTextColor="@color/colorPrimaryDark2"
+        app:egLegendColor="@color/colorDark"
         app:egShowStandardValue="true"/>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Упражнение: "
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 
 </LinearLayout>
