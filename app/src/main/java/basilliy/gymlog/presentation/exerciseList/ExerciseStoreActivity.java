@@ -6,10 +6,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,17 +16,14 @@ import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.entity.ExerciseStore;
 import basilliy.gymlog.presentation.programConstructor.MuscleDropDownAdapter;
 import basilliy.gymlog.presentation.utils.SecondActivity;
-import io.realm.RealmResults;
 
-public class ExerciseStoreActivity extends SecondActivity {
+public class ExerciseStoreActivity extends SecondActivity implements ExerciseStoreAdapter.ExerciseListListener {
 
     public static final int REQUEST = 1453;
     public static final String KEY_EXERCISE = "key_exercise";
-
-    private RealmResults<ExerciseStore> data;
-    private boolean[] show;
+    
     private String anyMuscle = "Любая";
-    private RecyclerAdapter adapter;
+    private ExerciseStoreAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,12 +44,11 @@ public class ExerciseStoreActivity extends SecondActivity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-
-        data = App.getExerciseStoreService().getAll();
-        show = new boolean[data.size()];
+        adapter = new ExerciseStoreAdapter(getLayoutInflater());
+        adapter.setData(App.getExerciseStoreService().getAll());
+        adapter.setListener(this);
 
         RecyclerView list = (RecyclerView) findViewById(R.id.list);
-        adapter = new RecyclerAdapter();
         list.setAdapter(adapter);
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setItemAnimator(new DefaultItemAnimator());
@@ -69,24 +63,22 @@ public class ExerciseStoreActivity extends SecondActivity {
     public void onClickFloatButton() {}
 
     private void onSelectMuscle(String muscle) {
-        if (muscle.equals(anyMuscle)) {
-            data = App.getExerciseStoreService().getAll();
-        } else {
-            data = App.getExerciseStoreService().getByMusle(muscle);
-        }
+        if (muscle.equals(anyMuscle)) adapter.setData(App.getExerciseStoreService().getAll());
+        else adapter.setData(App.getExerciseStoreService().getByMusle(muscle));
 
-        show = new boolean[data.size()];
         adapter.notifyDataSetChanged();
     }
 
-    private void onClickItem(ExerciseStore store) {
+    @Override
+    public void onClickItem(ExerciseStore store) {
         Intent intent = new Intent();
         intent.putExtra(KEY_EXERCISE, store);
         setResult(RESULT_OK, intent);
         finish();
     }
 
-    private void onClickMore(ExerciseStore store) {
+    @Override
+    public void onClickMore(ExerciseStore store) {
         Intent intent = new Intent(this, ExerciseStoreMoreActivity.class);
         intent.putExtra(ExerciseStoreMoreActivity.KEY_EXERCISE, store);
         startActivityForResult(intent, REQUEST);
@@ -99,75 +91,5 @@ public class ExerciseStoreActivity extends SecondActivity {
             onClickItem((ExerciseStore) data.getParcelableExtra(ExerciseStoreMoreActivity.KEY_EXERCISE));
     }
 
-    private class ViewHolder extends RecyclerView.ViewHolder {
-        View view;
-        View more;
-        View add;
-        View detail;
-        TextView name;
-        TextView level;
-        TextView targetMuscle;
-        TextView involvedMuscle;
-        TextView inventory;
 
-        ViewHolder(View view) {
-            super(view);
-            this.view = view;
-            name = (TextView) view.findViewById(R.id.name);
-            level = (TextView) view.findViewById(R.id.level);
-            targetMuscle = (TextView) view.findViewById(R.id.target_muscle);
-            involvedMuscle = (TextView) view.findViewById(R.id.extra_muscle);
-            inventory = (TextView) view.findViewById(R.id.inventory);
-            more = view.findViewById(R.id.more);
-            add = view.findViewById(R.id.add);
-            detail = view.findViewById(R.id.detail);
-        }
-    }
-
-    private class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(getLayoutInflater().inflate(R.layout.element_exercise_store, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            final ExerciseStore store = data.get(position);
-            holder.name.setText(store.getName());
-            holder.level.setText("Сложность: " + store.getLevelString());
-            holder.inventory.setText("Инвентарь: " + store.getInventory());
-            holder.targetMuscle.setText("Целевая мышца: " + store.getTargetMuscle());
-            holder.involvedMuscle.setText("Вовлеченные мышцы: " + store.getInvolvedMuscle());
-
-            holder.detail.setVisibility(show[holder.getAdapterPosition()] ? View.VISIBLE : View.GONE);
-
-            holder.more.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onClickMore(store);
-                }
-            });
-
-            holder.add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onClickItem(store);
-                }
-            });
-
-            holder.view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    show[holder.getAdapterPosition()] = !show[holder.getAdapterPosition()];
-                    notifyItemChanged(holder.getAdapterPosition());
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return data.size();
-        }
-
-    }
 }
