@@ -29,8 +29,8 @@ public class NavigationActivity extends AppCompatActivity
     public static final int PROGRAM_ACTIVE = 0;
     public static final int PROGRAM_LIST = 1;
     public static final int EXERCISE = 2;
-    public static final int CALENDAR = 4;
-    public static final int GRAPH = 5;
+    public static final int CALENDAR = 3;
+    public static final int GRAPH = 4;
 
     private BackPressedListener backPressedListener;
     private Fragment fragment;

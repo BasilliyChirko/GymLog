@@ -12,11 +12,12 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:egUseCubic="true"
-        app:egCurveSmoothness="0.2"
+        app:egCurveSmoothness="0.4"
         app:egLegendHeight="54dp"
         app:egIndicatorLineColor="#FE6DA8"
         app:egIndicatorTextColor="@color/colorPrimaryDark2"
         app:egLegendColor="@color/colorDark"
+        app:egAnimationTime="500"
         app:egShowStandardValue="true"/>
 
     <LinearLayout

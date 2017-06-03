@@ -1330,6 +1330,18 @@ public class LoadData {
             calendar.add(Calendar.DAY_OF_MONTH, 2);
         }
 
+        values = new long[] {
+                2, 3, 5, 1, 4
+        };
+
+        calendar = Calendar.getInstance();
+
+        for (long value : values) {
+            ExerciseResult result = createExerciseResult(stores.get(2), calendar.getTime(), value);
+            service.persist(result);
+            calendar.add(Calendar.DAY_OF_MONTH, 3);
+        }
+
     }
 
     private static ExerciseResult createExerciseResult(ExerciseStore store, Date date, long value) {

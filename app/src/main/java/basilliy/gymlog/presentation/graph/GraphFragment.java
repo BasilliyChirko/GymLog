@@ -11,8 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import org.eazegraph.lib.charts.ValueLineChart;
+import org.eazegraph.lib.models.ValueLinePoint;
+import org.eazegraph.lib.models.ValueLineSeries;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Set;
 
@@ -59,22 +63,39 @@ public class GraphFragment extends FragmentOnRoot {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, names);
 
             spinner.setAdapter(adapter);
-            spinner.setOnItemClickListener(itemClickListener);
+            spinner.setOnItemSelectedListener(onItemSelectedListener);
         }
     }
 
-    private AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+    AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String item = (String) parent.getSelectedItem();
             paintChart(mapResult.get(item));
         }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {}
     };
 
-
-
     private void paintChart(ArrayList<ExerciseResult> list) {
+        ValueLineSeries series = new ValueLineSeries();
+        series.setColor(0xFF26AE71);
+        Calendar calendar = new GregorianCalendar();
 
+        for (ExerciseResult result : list) {
+            calendar.setTime(result.getDate());
+            series.addPoint(new ValueLinePoint(createDate(calendar), result.getValue()));
+        }
+
+        chart.clearChart();
+        chart.addSeries(series);
+        chart.startAnimation();
+    }
+
+    private String createDate(Calendar calendar) {
+        return calendar.get(Calendar.DAY_OF_MONTH) + " " +
+                getResources().getStringArray(R.array.month_name)[calendar.get(Calendar.MONTH)];
     }
 
     @Override
