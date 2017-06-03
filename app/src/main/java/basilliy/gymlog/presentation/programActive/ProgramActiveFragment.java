@@ -136,6 +136,7 @@ public class ProgramActiveFragment extends FragmentOnRoot
         for (Approach approach : exercise.getApproachList())
             value += approach.getValue();
         result.setValue((long) value);
+        result.setDate(Calendar.getInstance().getTime());
 
         App.getExerciseResultService().persist(result);
     }
