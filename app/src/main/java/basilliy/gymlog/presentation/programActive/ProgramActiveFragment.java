@@ -7,23 +7,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
 
 import basilliy.gymlog.R;
 import basilliy.gymlog.application.App;
-import basilliy.gymlog.application.service.ExerciseResultService;
 import basilliy.gymlog.domain.entity.ActiveProgram;
 import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Day;
@@ -31,8 +23,6 @@ import basilliy.gymlog.domain.entity.Exercise;
 import basilliy.gymlog.domain.entity.ExerciseResult;
 import basilliy.gymlog.presentation.navigation.FragmentOnRoot;
 import basilliy.gymlog.presentation.navigation.NavigationActivity;
-import basilliy.gymlog.utils.D;
-import io.realm.RealmResults;
 
 
 public class ProgramActiveFragment extends FragmentOnRoot
@@ -134,7 +124,7 @@ public class ProgramActiveFragment extends FragmentOnRoot
         result.setStore(exercise.getStore());
         double value = 0;
         for (Approach approach : exercise.getApproachList())
-            value += approach.getValue();
+            value += approach.getValue() * approach.getReps();
         result.setValue((long) value);
         result.setDate(Calendar.getInstance().getTime());
 

@@ -18,7 +18,6 @@ import android.widget.FrameLayout;
 
 import basilliy.gymlog.R;
 import basilliy.gymlog.presentation.exerciseList.ExerciseListFragment;
-import basilliy.gymlog.presentation.measureList.MeasureListFragment;
 import basilliy.gymlog.presentation.calendar.CalendarFragment;
 import basilliy.gymlog.presentation.graph.GraphFragment;
 import basilliy.gymlog.presentation.programActive.ProgramActiveFragment;
@@ -30,9 +29,8 @@ public class NavigationActivity extends AppCompatActivity
     public static final int PROGRAM_ACTIVE = 0;
     public static final int PROGRAM_LIST = 1;
     public static final int EXERCISE = 2;
-    public static final int MEASURE = 3;
-    public static final int CALENDAR = 4;
-    public static final int GRAPH = 5;
+    public static final int CALENDAR = 3;
+    public static final int GRAPH = 4;
 
     private BackPressedListener backPressedListener;
     private Fragment fragment;
@@ -66,9 +64,8 @@ public class NavigationActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        setPage(PROGRAM_ACTIVE);
+        setPage(GRAPH);
     }
-    
 
     @Override
     public void onBackPressed() {
@@ -81,7 +78,6 @@ public class NavigationActivity extends AppCompatActivity
             }
         }
     }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -98,7 +94,6 @@ public class NavigationActivity extends AppCompatActivity
             case PROGRAM_ACTIVE: id = R.id.nav_program_active; break;
             case PROGRAM_LIST: id = R.id.nav_program_list; break;
             case EXERCISE: id = R.id.nav_exercise; break;
-            case MEASURE: id = R.id.nav_measure; break;
             case CALENDAR: id = R.id.nav_calendar; break;
             case GRAPH: id = R.id.nav_graph; break;
         }
@@ -118,9 +113,6 @@ public class NavigationActivity extends AppCompatActivity
                 break;
             case R.id.nav_exercise:
                 fragment = ExerciseListFragment.newInstance();
-                break;
-            case R.id.nav_measure:
-                fragment = MeasureListFragment.newInstance();
                 break;
             case R.id.nav_calendar:
                 fragment = CalendarFragment.newInstance();

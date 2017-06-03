@@ -3,9 +3,12 @@ package basilliy.gymlog.application;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import basilliy.gymlog.R;
+import basilliy.gymlog.application.service.ExerciseResultService;
 import basilliy.gymlog.application.service.ExerciseStoreService;
-import basilliy.gymlog.application.service.Service;
 import basilliy.gymlog.domain.entity.ActiveProgram;
 import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Day;
@@ -39,7 +42,8 @@ public class LoadData {
 
             loadMeasure();
             loadExerciseStore();
-            loadTestData();
+            loadTestProgram();
+            loadTestExerciseResult();
 
             preferences.edit().putBoolean(Config.pref.firstLoad, false).apply();
         }
@@ -1071,7 +1075,7 @@ public class LoadData {
         repository.persist(store);
     }
 
-    private static void loadTestData() {
+    private static void loadTestProgram() {
 
         RealmResults<ExerciseStore> stores = App.getExerciseStoreService().getAll();
 
@@ -1308,5 +1312,43 @@ public class LoadData {
 
         App.getProgramService().persist(p);
 
+    }
+
+    private static void loadTestExerciseResult(){
+        RealmResults<ExerciseStore> stores = App.getExerciseStoreService().getAll();
+        ExerciseResultService service = App.getExerciseResultService();
+
+        long[] values = new long[] {
+          25, 27, 30, 35, 35, 35, 20, 24, 25, 30, 32, 25, 27, 30, 35, 35, 35, 20, 24, 25, 30, 32, 42
+        };
+
+        Calendar calendar = Calendar.getInstance();
+
+        for (long value : values) {
+            ExerciseResult result = createExerciseResult(stores.get(1), calendar.getTime(), value);
+            service.persist(result);
+            calendar.add(Calendar.DAY_OF_MONTH, 2);
+        }
+
+        values = new long[] {
+                2, 3, 5, 1, 4
+        };
+
+        calendar = Calendar.getInstance();
+
+        for (long value : values) {
+            ExerciseResult result = createExerciseResult(stores.get(2), calendar.getTime(), value);
+            service.persist(result);
+            calendar.add(Calendar.DAY_OF_MONTH, 3);
+        }
+
+    }
+
+    private static ExerciseResult createExerciseResult(ExerciseStore store, Date date, long value) {
+        ExerciseResult result = new ExerciseResult();
+        result.setStore(store);
+        result.setDate(date);
+        result.setValue(value);
+        return result;
     }
 }
