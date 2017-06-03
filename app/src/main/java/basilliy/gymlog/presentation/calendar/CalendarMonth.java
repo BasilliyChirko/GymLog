@@ -86,6 +86,11 @@ class CalendarMonth implements Serializable {
     private void setDayMarker() {
         ActiveProgram activeProgram = App.getActiveProgramService().get();
 
+        if (activeProgram == null || activeProgram.getProgram() == null) {
+            setCurrent();
+            return;
+        }
+
         Calendar clone = (Calendar) calendar.clone();
         clone.set(Calendar.HOUR_OF_DAY, 0);
         clone.set(Calendar.MINUTE, 0);
@@ -98,7 +103,11 @@ class CalendarMonth implements Serializable {
             clone.add(Calendar.DAY_OF_MONTH, 1);
         }
 
-        clone = Calendar.getInstance();
+        setCurrent();
+    }
+
+    private void setCurrent() {
+        Calendar clone = Calendar.getInstance();
         clone.set(Calendar.HOUR_OF_DAY, 0);
         clone.set(Calendar.MINUTE, 0);
         clone.set(Calendar.SECOND, 0);

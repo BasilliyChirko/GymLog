@@ -23,11 +23,10 @@ public class CalendarFragment extends FragmentOnRoot {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initRootActivityElement();
-        return inflater.inflate(R.layout.fragment_calendar, container, false);
+        return initView(inflater.inflate(R.layout.fragment_calendar, container, false));
     }
 
-    @Override
-    public void onViewCreated(View v, @Nullable Bundle savedInstanceState) {
+    public View initView(View v) {
         pager = (ViewPager) v.findViewById(R.id.pager);
         CalendarPagerAdapter calendarPagerAdapter = new CalendarPagerAdapter(getFragmentManager());
         pager.setAdapter(calendarPagerAdapter);
@@ -46,6 +45,7 @@ public class CalendarFragment extends FragmentOnRoot {
                 pager.setCurrentItem(pager.getCurrentItem() + 1, true);
             }
         });
+        return v;
     }
 
     @Override
@@ -59,10 +59,7 @@ public class CalendarFragment extends FragmentOnRoot {
     }
 
     public static CalendarFragment newInstance() {
-        Bundle args = new Bundle();
-        CalendarFragment fragment = new CalendarFragment();
-        fragment.setArguments(args);
-        return fragment;
+        return new CalendarFragment();
     }
 
     private class CalendarPagerAdapter extends FragmentPagerAdapter {
