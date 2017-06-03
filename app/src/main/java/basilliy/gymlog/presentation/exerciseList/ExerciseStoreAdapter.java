@@ -17,6 +17,7 @@ class ExerciseStoreAdapter extends RecyclerView.Adapter<ExerciseStoreAdapter.Vie
     private boolean[] show;
     private ExerciseListListener listener;
     private LayoutInflater inflater;
+    private boolean showDone = true;
 
 
     ExerciseStoreAdapter(LayoutInflater inflater) {
@@ -47,6 +48,7 @@ class ExerciseStoreAdapter extends RecyclerView.Adapter<ExerciseStoreAdapter.Vie
         holder.involvedMuscle.setText("Вовлеченные мышцы: " + store.getInvolvedMuscle());
 
         holder.detail.setVisibility(show[holder.getAdapterPosition()] ? View.VISIBLE : View.GONE);
+        holder.add.setVisibility(showDone ? View.VISIBLE : View.GONE);
 
         holder.more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +78,14 @@ class ExerciseStoreAdapter extends RecyclerView.Adapter<ExerciseStoreAdapter.Vie
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public boolean isShowDone() {
+        return showDone;
+    }
+
+    public void setShowDone(boolean showDone) {
+        this.showDone = showDone;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
