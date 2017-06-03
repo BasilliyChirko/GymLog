@@ -10,6 +10,7 @@ import basilliy.gymlog.domain.entity.ActiveProgram;
 import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Exercise;
+import basilliy.gymlog.domain.entity.ExerciseResult;
 import basilliy.gymlog.domain.entity.ExerciseStore;
 import basilliy.gymlog.domain.entity.Measure;
 import basilliy.gymlog.domain.entity.Program;
@@ -34,6 +35,7 @@ public class LoadData {
             App.getRepository(Approach.class).deleteAll();
             App.getRepository(Measure.class).deleteAll();
             App.getRepository(ActiveProgram.class).deleteAll();
+            App.getRepository(ExerciseResult.class).deleteAll();
 
             loadMeasure();
             loadExerciseStore();

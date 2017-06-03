@@ -126,9 +126,9 @@ public final class D {
 
     public static void log(Object object) {
         if (object == null) {
-            Log.d(TAG, "null");
+            Log.i(TAG, "null");
         } else {
-            Log.d(TAG, String.valueOf(object));
+            Log.i(TAG, String.valueOf(object));
         }
     }
 

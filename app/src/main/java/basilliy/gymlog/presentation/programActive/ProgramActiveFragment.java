@@ -23,11 +23,16 @@ import java.util.Set;
 
 import basilliy.gymlog.R;
 import basilliy.gymlog.application.App;
+import basilliy.gymlog.application.service.ExerciseResultService;
 import basilliy.gymlog.domain.entity.ActiveProgram;
+import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Exercise;
+import basilliy.gymlog.domain.entity.ExerciseResult;
 import basilliy.gymlog.presentation.navigation.FragmentOnRoot;
 import basilliy.gymlog.presentation.navigation.NavigationActivity;
+import basilliy.gymlog.utils.D;
+import io.realm.RealmResults;
 
 
 public class ProgramActiveFragment extends FragmentOnRoot
@@ -86,12 +91,16 @@ public class ProgramActiveFragment extends FragmentOnRoot
     public void onExerciseDoneClick(int position) {
         if (program.isChangeable()) {
             SetExerciseResultDialog.newInstance(position, this).show(getFragmentManager(), "tag");
-        } else finishExercise(position);
+        } else {
+            saveExerciseResult(day.getExerciseList().get(position));
+            finishExercise(position);
+        }
     }
 
     @Override
     public void onSetExerciseResult(int result, int position) {
         Exercise exercise = day.getExerciseList().get(position);
+        saveExerciseResult(exercise);
         switch (result) {
             case SetExerciseResultDialog.GOOD:
                 exercise.increaseApproachValue();
@@ -118,6 +127,17 @@ public class ProgramActiveFragment extends FragmentOnRoot
         label.setText("Все упражнения на сегодня выполнены");
         list.setVisibility(View.GONE);
         label.setVisibility(View.VISIBLE);
+    }
+
+    private void saveExerciseResult(Exercise exercise) {
+        ExerciseResult result = new ExerciseResult();
+        result.setStore(exercise.getStore());
+        double value = 0;
+        for (Approach approach : exercise.getApproachList())
+            value += approach.getValue();
+        result.setValue((long) value);
+
+        App.getExerciseResultService().persist(result);
     }
 
     @Override
