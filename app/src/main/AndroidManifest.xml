@@ -30,11 +30,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".presentation.programConstructor.ExerciseStoreActivity"
+            android:name=".presentation.exerciseList.ExerciseStoreActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".presentation.programConstructor.ExerciseStoreMoreActivity"
+            android:name=".presentation.exerciseList.ExerciseStoreMoreActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

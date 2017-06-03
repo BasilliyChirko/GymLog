@@ -1,4 +1,4 @@
-package basilliy.gymlog.presentation.programConstructor;
+package basilliy.gymlog.presentation.exerciseList;
 
 import android.content.Intent;
 import android.os.Bundle;

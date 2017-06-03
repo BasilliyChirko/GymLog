@@ -1,4 +1,4 @@
-package basilliy.gymlog.presentation.programConstructor;
+package basilliy.gymlog.presentation.exerciseList;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import basilliy.gymlog.R;
 import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.entity.ExerciseStore;
+import basilliy.gymlog.presentation.programConstructor.MuscleDropDownAdapter;
 import basilliy.gymlog.presentation.utils.SecondActivity;
 import io.realm.RealmResults;
 
@@ -28,7 +29,6 @@ public class ExerciseStoreActivity extends SecondActivity {
     private boolean[] show;
     private String anyMuscle = "Любая";
     private RecyclerAdapter adapter;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import basilliy.gymlog.R;
-import basilliy.gymlog.presentation.exerciseList.ExerciseListFragment;
+import basilliy.gymlog.presentation.exerciseList.ExerciseStoreListFragment;
 import basilliy.gymlog.presentation.calendar.CalendarFragment;
 import basilliy.gymlog.presentation.graph.GraphFragment;
 import basilliy.gymlog.presentation.programActive.ProgramActiveFragment;
@@ -112,7 +112,7 @@ public class NavigationActivity extends AppCompatActivity
                 fragment = ProgramListFragment.newInstance();
                 break;
             case R.id.nav_exercise:
-                fragment = ExerciseListFragment.newInstance();
+                fragment = ExerciseStoreListFragment.newInstance();
                 break;
             case R.id.nav_calendar:
                 fragment = CalendarFragment.newInstance();

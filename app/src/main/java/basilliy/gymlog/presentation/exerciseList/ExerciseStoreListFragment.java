@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import basilliy.gymlog.presentation.navigation.FragmentOnRoot;
 
 
-public class ExerciseListFragment extends FragmentOnRoot {
+public class ExerciseStoreListFragment extends FragmentOnRoot {
 
     @Nullable
     @Override
@@ -29,9 +29,9 @@ public class ExerciseListFragment extends FragmentOnRoot {
         setFloatButtonVisible(false);
     }
 
-    public static ExerciseListFragment newInstance() {
+    public static ExerciseStoreListFragment newInstance() {
         Bundle args = new Bundle();
-        ExerciseListFragment fragment = new ExerciseListFragment();
+        ExerciseStoreListFragment fragment = new ExerciseStoreListFragment();
         fragment.setArguments(args);
         return fragment;
     }
