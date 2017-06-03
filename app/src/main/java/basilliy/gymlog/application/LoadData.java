@@ -1319,7 +1319,7 @@ public class LoadData {
         ExerciseResultService service = App.getExerciseResultService();
 
         long[] values = new long[] {
-          25, 27, 30, 35, 35, 35, 20, 24, 25, 30, 32
+          25, 27, 30, 35, 35, 35, 20, 24, 25, 30, 32, 25, 27, 30, 35, 35, 35, 20, 24, 25, 30, 32, 42
         };
 
         Calendar calendar = Calendar.getInstance();

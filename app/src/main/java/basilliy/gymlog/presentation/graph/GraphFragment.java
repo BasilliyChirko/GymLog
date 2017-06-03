@@ -60,7 +60,7 @@ public class GraphFragment extends FragmentOnRoot {
             ArrayList<String> names = new ArrayList<>();
             for (String s : strings) names.add(s);
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, names);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, names);
 
             spinner.setAdapter(adapter);
             spinner.setOnItemSelectedListener(onItemSelectedListener);

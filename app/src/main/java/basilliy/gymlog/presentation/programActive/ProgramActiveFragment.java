@@ -124,7 +124,7 @@ public class ProgramActiveFragment extends FragmentOnRoot
         result.setStore(exercise.getStore());
         double value = 0;
         for (Approach approach : exercise.getApproachList())
-            value += approach.getValue();
+            value += approach.getValue() * approach.getReps();
         result.setValue((long) value);
         result.setDate(Calendar.getInstance().getTime());
 
