@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">#26ae80</item>
+        <item name="android:textColor">@color/colorDark</item>
     </style>
 
     <style name="AppTheme.ActionBarText">
@@ -14,6 +15,10 @@
         <item name="android:textColor">#FFF</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.PickerDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 
     <style name="AppTheme.ActionBarEditText"  parent="Theme.AppCompat.Light.DarkActionBar">

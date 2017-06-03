@@ -12,16 +12,16 @@ public class Approach extends RealmObject implements ID, Parcelable {
 
     @PrimaryKey
     protected long id;
-    private long reps;
-    private long value;
+    private double reps;
+    private double value;
 
     public Approach() {}
 
 
     protected Approach(Parcel in) {
         id = in.readLong();
-        reps = in.readLong();
-        value = in.readLong();
+        reps = in.readDouble();
+        value = in.readDouble();
     }
 
     public static final Creator<Approach> CREATOR = new Creator<Approach>() {
@@ -44,19 +44,19 @@ public class Approach extends RealmObject implements ID, Parcelable {
         this.id = id;
     }
 
-    public long getReps() {
+    public double getReps() {
         return reps;
     }
 
-    public void setReps(long reps) {
+    public void setReps(double reps) {
         this.reps = reps;
     }
 
-    public long getValue() {
+    public double getValue() {
         return value;
     }
 
-    public void setValue(long value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
@@ -77,7 +77,7 @@ public class Approach extends RealmObject implements ID, Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
-        dest.writeLong(reps);
-        dest.writeLong(value);
+        dest.writeDouble(reps);
+        dest.writeDouble(value);
     }
 }

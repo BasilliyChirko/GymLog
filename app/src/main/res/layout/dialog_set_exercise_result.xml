@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textStyle="bold"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:text="@string/exercise_result"/>
+
+    <TextView
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:layout_width="match_parent"
+        android:textSize="18sp"
+        android:layout_height="wrap_content"
+        android:text="@string/exercise_how_hard"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp">
+
+        <TextView
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:textColor="@color/colorPrimaryDark2"
+            android:textSize="18sp"
+            android:id="@+id/bad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hard"/>
+
+        <TextView
+            android:textColor="@color/colorPrimaryDark2"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:id="@+id/normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/normal"/>
+
+        <TextView
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:textColor="@color/colorPrimaryDark2"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:id="@+id/good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/easy"/>
+
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingBottom="16dp"-->
+        <!--android:paddingTop="8dp"-->
+        <!--android:paddingLeft="16dp"-->
+        <!--android:paddingRight="16dp">-->
+
+        <!--<Button-->
+            <!--android:id="@+id/bad"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_marginRight="4dp"-->
+            <!--android:background="@drawable/background_red"-->
+            <!--android:textColor="#fff"-->
+            <!--android:text="@string/hard"/>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/normal"-->
+            <!--android:layout_marginRight="4dp"-->
+            <!--android:layout_marginLeft="4dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textColor="#fff"-->
+            <!--android:background="@drawable/background_green"-->
+            <!--android:text="@string/normal"/>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/good"-->
+            <!--android:layout_marginLeft="4dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textColor="#fff"-->
+            <!--android:background="@drawable/background_blue"-->
+            <!--android:text="@string/easy"/>-->
+
+    <!--</LinearLayout>-->
+
+</LinearLayout>

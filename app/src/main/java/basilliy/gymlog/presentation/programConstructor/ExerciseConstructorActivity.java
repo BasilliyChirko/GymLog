@@ -109,8 +109,8 @@ public class ExerciseConstructorActivity extends SecondActivity implements Appro
 
             String text =
                     "Подход " + (position + 1) + ": " +
-                    approach.getReps() + "x" +  approach.getValue()
-                    + " " + exercise.getStore().getMeasure().getName();
+                            (int) approach.getReps() + "x" + (int) approach.getValue()
+                            + " " + exercise.getStore().getMeasure().getName();
             holder.name.setText(text);
 
             holder.view.setOnClickListener(new View.OnClickListener() {

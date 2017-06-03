@@ -1,28 +1,31 @@
 package basilliy.gymlog.application;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.util.Log;
 
 import basilliy.gymlog.R;
 import basilliy.gymlog.application.service.ExerciseStoreService;
 import basilliy.gymlog.application.service.Service;
+import basilliy.gymlog.domain.entity.ActiveProgram;
 import basilliy.gymlog.domain.entity.Approach;
 import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Exercise;
+import basilliy.gymlog.domain.entity.ExerciseResult;
 import basilliy.gymlog.domain.entity.ExerciseStore;
 import basilliy.gymlog.domain.entity.Measure;
 import basilliy.gymlog.domain.entity.Program;
 import basilliy.gymlog.domain.repository.Repository;
 import basilliy.gymlog.utils.Config;
-import basilliy.gymlog.utils.D;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class LoadData {
 
     public static void load() {
-        SharedPreferences preferences = App.getContext().getSharedPreferences(Config.pref.name, Context.MODE_PRIVATE);
+        SharedPreferences preferences = App.getPreferences();
+
+        // TODO: 02.06.2017 delete release
+        preferences.edit().putBoolean(Config.pref.firstLoad, true).apply();
 
         if (preferences.getBoolean(Config.pref.firstLoad, true)) {
             App.getRepository(Program.class).deleteAll();
@@ -31,9 +34,12 @@ public class LoadData {
             App.getRepository(ExerciseStore.class).deleteAll();
             App.getRepository(Approach.class).deleteAll();
             App.getRepository(Measure.class).deleteAll();
+            App.getRepository(ActiveProgram.class).deleteAll();
+            App.getRepository(ExerciseResult.class).deleteAll();
 
             loadMeasure();
             loadExerciseStore();
+            loadTestData();
 
             preferences.edit().putBoolean(Config.pref.firstLoad, false).apply();
         }
@@ -41,19 +47,20 @@ public class LoadData {
 
     private static void loadMeasure() {
         Resources res = App.getContext().getResources();
-        Service<Measure> service = App.getMeasureService();
-        service.removeAll();
+        Repository<Measure> service = App.getRepository(Measure.class);
+        service.deleteAll();
 
-        addMeasure(service, res, R.string.meter);
-        addMeasure(service, res, R.string.centimeter);
-        addMeasure(service, res, R.string.kilometer);
-        addMeasure(service, res, R.string.kilogram);
-        addMeasure(service, res, R.string.second);
+        addMeasure(service, res, 1, R.string.meter);
+        addMeasure(service, res, 2, R.string.centimeter);
+        addMeasure(service, res, 3, R.string.kilometer);
+        addMeasure(service, res, 4, R.string.kilogram);
+        addMeasure(service, res, 5, R.string.second);
     }
 
-    private static void addMeasure(Service<Measure> service, Resources res, int nameID) {
+    private static void addMeasure(Repository<Measure> service, Resources res, int id, int nameID) {
         Measure measure = new Measure();
         measure.setName(res.getString(nameID));
+        measure.setId(id);
         service.persist(measure);
     }
 
@@ -1065,18 +1072,241 @@ public class LoadData {
     }
 
     private static void loadTestData() {
-        Service<Program> service = App.getProgramService();
-        Program program;
 
-        program = new Program();
-        program.setName("Hay");
-        service.persist(program);
+        RealmResults<ExerciseStore> stores = App.getExerciseStoreService().getAll();
 
-        program = new Program();
-        program.setName("Gay");
-        service.persist(program);
+        Program p;
+        Day d;
+        Exercise e;
+        Approach a;
 
-        RealmResults<Program> all = service.getAll();
-        all.isEmpty();
+        RealmList<Day> dayList;
+        RealmList<Exercise> exerciseList;
+        RealmList<Approach> approachList;
+
+        p = new Program();
+        p.setName("Животные");
+
+        dayList = p.getDayList();
+
+        d = new Day();
+        d.setName("Мяу");
+        dayList.add(d);
+
+        exerciseList = d.getExerciseList();
+
+        e = new Exercise();
+        e.setStore(stores.get(1));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        e = new Exercise();
+        e.setStore(stores.get(2));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+
+        e = new Exercise();
+        e.setStore(stores.get(3));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+
+        d = new Day();
+        d.setName("");
+        dayList.add(d);
+
+        d = new Day();
+        d.setName("Гав");
+        dayList.add(d);
+
+        exerciseList = d.getExerciseList();
+
+        e = new Exercise();
+        e.setStore(stores.get(4));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        e = new Exercise();
+        e.setStore(stores.get(5));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        e = new Exercise();
+        e.setStore(stores.get(6));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+
+        d = new Day();
+        d.setName("");
+        dayList.add(d);
+
+        d = new Day();
+        d.setName("Муу");
+        dayList.add(d);
+
+        exerciseList = d.getExerciseList();
+
+        e = new Exercise();
+        e.setStore(stores.get(7));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        e = new Exercise();
+        e.setStore(stores.get(8));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        e = new Exercise();
+        e.setStore(stores.get(9));
+        exerciseList.add(e);
+
+        approachList = e.getApproachList();
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        a = new Approach();
+        a.setReps(15);
+        a.setValue(25);
+        approachList.add(a);
+
+        App.getProgramService().persist(p);
+
     }
 }

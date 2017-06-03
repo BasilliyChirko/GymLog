@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import basilliy.gymlog.R;
 import basilliy.gymlog.presentation.navigation.FragmentOnRoot;
 
 
@@ -21,7 +22,7 @@ public class GraphFragment extends FragmentOnRoot {
 
     @Override
     public View getToolbarContent(LayoutInflater inflater) {
-        return null;
+        return inflater.inflate(R.layout.action_bar_graph, null, false);
     }
 
     @Override

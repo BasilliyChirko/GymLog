@@ -4,8 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import basilliy.gymlog.application.service.ActiveProgramService;
 import basilliy.gymlog.application.service.ApproachService;
 import basilliy.gymlog.application.service.DayService;
+import basilliy.gymlog.application.service.ExerciseResultService;
 import basilliy.gymlog.application.service.ExerciseService;
 import basilliy.gymlog.application.service.ExerciseStoreService;
 import basilliy.gymlog.application.service.MeasureService;
@@ -35,6 +37,8 @@ public class App extends Application {
             return Realm.getDefaultInstance();
         } catch (RealmMigrationNeededException e) {
             Realm.deleteRealm(App.app.getRealmConfiguration());
+            getPreferences().edit().putBoolean(Config.pref.firstLoad, true).apply();
+            LoadData.load();
             return Realm.getDefaultInstance();
         }
     }
@@ -65,6 +69,14 @@ public class App extends Application {
 
     public static ExerciseStoreService getExerciseStoreService() {
         return new ExerciseStoreService();
+    }
+
+    public static ActiveProgramService getActiveProgramService() {
+        return new ActiveProgramService();
+    }
+
+    public static ExerciseResultService getExerciseResultService() {
+        return new ExerciseResultService();
     }
 
     public static SharedPreferences getPreferences () {

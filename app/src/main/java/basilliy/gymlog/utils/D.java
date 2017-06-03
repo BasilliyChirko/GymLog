@@ -3,6 +3,7 @@ package basilliy.gymlog.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -125,13 +126,17 @@ public final class D {
 
     public static void log(Object object) {
         if (object == null) {
-            Log.d(TAG, "null");
+            Log.i(TAG, "null");
         } else {
-            Log.d(TAG, String.valueOf(object));
+            Log.i(TAG, String.valueOf(object));
         }
     }
 
     public static void toast(String text) {
         Toast.makeText(App.getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    public static String stroke(String text) {
+        return String.valueOf(Html.fromHtml("<s>" + text + "</s>"));
     }
 }

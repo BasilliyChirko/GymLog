@@ -9,15 +9,19 @@ import java.util.ArrayList;
 
 import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.repository.ID;
+import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 public class Exercise extends RealmObject implements ID, Parcelable {
 
     @PrimaryKey
-    protected long id;private ExerciseStore store;
+    protected long id;
+    private ExerciseStore store;
     private RealmList<Approach> approachList = new RealmList<>();
+    private boolean done;
 
     public Exercise(){}
 
@@ -78,7 +82,7 @@ public class Exercise extends RealmObject implements ID, Parcelable {
             return "";
         StringBuilder builder = new StringBuilder();
         for (Approach approach : getApproachList())
-            builder.append(approach.getReps()).append("-");
+            builder.append((long)approach.getReps()).append("-");
         String s = builder.toString();
         return s.substring(0, s.length() - 1);
     }
@@ -88,7 +92,7 @@ public class Exercise extends RealmObject implements ID, Parcelable {
             return "";
         StringBuilder builder = new StringBuilder();
         for (Approach approach : getApproachList())
-            builder.append(approach.getValue()).append("-");
+            builder.append((long)approach.getValue()).append("-");
         String s = builder.toString();
         return s.substring(0, s.length() - 1);
     }
@@ -104,4 +108,32 @@ public class Exercise extends RealmObject implements ID, Parcelable {
         dest.writeParcelable(store, flags);
         dest.writeTypedList(approachList);
     }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        Realm realm = App.getRealm();
+        realm.beginTransaction();
+        this.done = done;
+        realm.commitTransaction();
+    }
+
+    public void increaseApproachValue() {
+        Realm realm = App.getRealm();
+        realm.beginTransaction();
+        for (Approach approach : getApproachList())
+            approach.setValue(approach.getValue() * 1.04);
+        realm.commitTransaction();
+    }
+
+    public void decreaseApproachValue() {
+        Realm realm = App.getRealm();
+        realm.beginTransaction();
+        for (Approach approach : getApproachList())
+            approach.setValue(approach.getValue() * 0.96);
+        realm.commitTransaction();
+    }
+
 }

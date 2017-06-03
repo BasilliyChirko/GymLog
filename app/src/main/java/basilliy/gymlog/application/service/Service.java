@@ -55,23 +55,7 @@ public abstract class Service<T extends RealmObject> {
 
     public <E extends RealmObject> void remove(T object) {
         try {
-            RealmList<E> innerList = getInnerList(object);
-
-            if (innerList != null && innerList.size() > 0) {
-                Service<E> service = getInnerDataService();
-                if (service == null) return;
-                int size = innerList.size();
-                for (int i = 0; i < size; i++) {
-                    service.remove(innerList.get(i));
-                }
-            }
-            try {
-                App.getRepository(clazz).delete(getId(object));
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
+            App.getRepository(clazz).delete(getId(object));
         } catch (Exception e) {
             throw new RuntimeException("Exception in GenericService " + clazz.getSimpleName());
         }
