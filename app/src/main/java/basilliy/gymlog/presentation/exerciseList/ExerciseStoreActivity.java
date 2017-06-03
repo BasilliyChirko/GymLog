@@ -21,14 +21,14 @@ public class ExerciseStoreActivity extends SecondActivity implements ExerciseSto
 
     public static final int REQUEST = 1453;
     public static final String KEY_EXERCISE = "key_exercise";
-    
+
     private String anyMuscle = "Любая";
+    private String muscle = anyMuscle;
     private ExerciseStoreAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        findViewById(R.id.fab).setVisibility(View.GONE);
 
         final ArrayList<String> muscleList = App.getExerciseStoreService().getMuscleList();
         muscleList.add(0, anyMuscle);
@@ -60,9 +60,12 @@ public class ExerciseStoreActivity extends SecondActivity implements ExerciseSto
     }
 
     @Override
-    public void onClickFloatButton() {}
+    public void onClickFloatButton() {
+        startActivity(new Intent(this, CreateExerciseActivity.class));
+    }
 
     private void onSelectMuscle(String muscle) {
+        this.muscle = muscle;
         if (muscle.equals(anyMuscle)) adapter.setData(App.getExerciseStoreService().getAll());
         else adapter.setData(App.getExerciseStoreService().getByMusle(muscle));
 
@@ -82,6 +85,12 @@ public class ExerciseStoreActivity extends SecondActivity implements ExerciseSto
         Intent intent = new Intent(this, ExerciseStoreMoreActivity.class);
         intent.putExtra(ExerciseStoreMoreActivity.KEY_EXERCISE, store);
         startActivityForResult(intent, REQUEST);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onSelectMuscle(muscle);
     }
 
     @Override
