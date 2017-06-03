@@ -30,9 +30,6 @@ public class ExerciseStoreListFragment extends FragmentOnRoot {
     }
 
     public static ExerciseStoreListFragment newInstance() {
-        Bundle args = new Bundle();
-        ExerciseStoreListFragment fragment = new ExerciseStoreListFragment();
-        fragment.setArguments(args);
-        return fragment;
+        return new ExerciseStoreListFragment();
     }
 }
