@@ -27,9 +27,6 @@ public class LoadData {
     public static void load() {
         SharedPreferences preferences = App.getPreferences();
 
-        // TODO: 02.06.2017 delete release
-        preferences.edit().putBoolean(Config.pref.firstLoad, true).apply();
-
         if (preferences.getBoolean(Config.pref.firstLoad, true)) {
             App.getRepository(Program.class).deleteAll();
             App.getRepository(Day.class).deleteAll();
