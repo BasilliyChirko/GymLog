@@ -1,13 +1,13 @@
 package basilliy.gymlog.presentation.programActive;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
+
+import basilliy.gymlog.R;
 
 public class SetExerciseResultDialog extends DialogFragment {
 
@@ -21,28 +21,31 @@ public class SetExerciseResultDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new AlertDialog.Builder(getContext())
-                .setTitle("Результат упражнения")
-                .setMessage("Как тяжело было выполнить упражение?")
-                .setPositiveButton("Легко", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        done(GOOD);
-                    }
-                })
-                .setNeutralButton("Нормально", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        done(NORMAL);
-                    }
-                })
-                .setNegativeButton("Тяжело", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        done(BAD);
-                    }
-                })
-                .create();
+
+        View v = getActivity().getLayoutInflater().inflate(R.layout.dialog_set_exercise_result, null, false);
+
+        v.findViewById(R.id.good).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                done(GOOD);
+            }
+        });
+
+        v.findViewById(R.id.normal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                done(NORMAL);
+            }
+        });
+
+        v.findViewById(R.id.bad).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                done(BAD);
+            }
+        });
+
+        return new AlertDialog.Builder(getContext()).setView(v).create();
     }
 
     private void done(int result) {
@@ -50,7 +53,6 @@ public class SetExerciseResultDialog extends DialogFragment {
             listener.onSetExerciseResult(result, getArguments().getInt(KEY_POSITION));
         dismiss();
     }
-
 
     public static SetExerciseResultDialog newInstance(int position, OnSetExerciseResultListener listener) {
         Bundle args = new Bundle();

@@ -33,6 +33,11 @@
     <string name="finish_exercise">Завершить</string>
     <string name="graph">Графики</string>
     <string name="calendar">Календарь</string>
+    <string name="exercise_result">Результат упражнения</string>
+    <string name="exercise_how_hard">Как тяжело было выполнить упражение?</string>
+    <string name="hard">Тяжело</string>
+    <string name="normal">Нормально</string>
+    <string name="easy">Легко</string>
 
     <string-array name="month_name">
         <item>Января</item>
