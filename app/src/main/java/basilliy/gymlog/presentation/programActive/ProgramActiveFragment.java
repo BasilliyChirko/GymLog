@@ -39,6 +39,8 @@ public class ProgramActiveFragment extends FragmentOnRoot
     private Day day;
 
     private View cancel;
+    private RecyclerView list;
+    private TextView label;
 
 
     @Nullable
@@ -51,7 +53,7 @@ public class ProgramActiveFragment extends FragmentOnRoot
 
     @Override
     public void onViewCreated(View v, @Nullable Bundle savedInstanceState) {
-        TextView label = (TextView) v.findViewById(R.id.label_no_active);
+        label = (TextView) v.findViewById(R.id.label_no_active);
         label.setVisibility(program == null ? View.VISIBLE : View.GONE);
         cancel.setVisibility(program == null ? View.GONE : View.VISIBLE);
 
@@ -72,11 +74,12 @@ public class ProgramActiveFragment extends FragmentOnRoot
     }
 
     private void displayDay(Day day, View view) {
-        RecyclerView list = (RecyclerView) view.findViewById(R.id.list);
+        list = (RecyclerView) view.findViewById(R.id.list);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         list.setItemAnimator(new DefaultItemAnimator());
         adapter = new ActiveExerciseAdapter(day, getActivity().getLayoutInflater(), getContext(), this);
         list.setAdapter(adapter);
+        checkExercisesIsDone();
     }
 
     @Override
@@ -105,6 +108,16 @@ public class ProgramActiveFragment extends FragmentOnRoot
             day.getExerciseList().get(position).setDone(true);
             adapter.notifyItemChanged(position);
         }
+        checkExercisesIsDone();
+    }
+
+    private void checkExercisesIsDone() {
+        for (Exercise exercise : day.getExerciseList())
+            if (!exercise.isDone()) return;
+
+        label.setText("Все упражнения на сегодня выполнены");
+        list.setVisibility(View.GONE);
+        label.setVisibility(View.VISIBLE);
     }
 
     @Override
