@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import basilliy.gymlog.application.service.ActiveProgramService;
 import basilliy.gymlog.application.service.ApproachService;
 import basilliy.gymlog.application.service.DayService;
+import basilliy.gymlog.application.service.ExerciseResultService;
 import basilliy.gymlog.application.service.ExerciseService;
 import basilliy.gymlog.application.service.ExerciseStoreService;
 import basilliy.gymlog.application.service.MeasureService;
@@ -72,6 +73,10 @@ public class App extends Application {
 
     public static ActiveProgramService getActiveProgramService() {
         return new ActiveProgramService();
+    }
+
+    public static ExerciseResultService getExerciseResultService() {
+        return new ExerciseResultService();
     }
 
     public static SharedPreferences getPreferences () {
