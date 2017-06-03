@@ -121,11 +121,19 @@ public class Exercise extends RealmObject implements ID, Parcelable {
     }
 
     public void increaseApproachValue() {
-        // TODO: 31.05.2017
+        Realm realm = App.getRealm();
+        realm.beginTransaction();
+        for (Approach approach : getApproachList())
+            approach.setValue(approach.getValue() * 1.04);
+        realm.commitTransaction();
     }
 
     public void decreaseApproachValue() {
-        // TODO: 31.05.2017
+        Realm realm = App.getRealm();
+        realm.beginTransaction();
+        for (Approach approach : getApproachList())
+            approach.setValue(approach.getValue() * 0.96);
+        realm.commitTransaction();
     }
 
 }
