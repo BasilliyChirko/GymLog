@@ -63,7 +63,7 @@ public class Day extends RealmObject implements ID, Parcelable {
 
     @Override
     public String toString() {
-        return "Day{" +
+        return "CalendarDay{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", exerciseList=" + exerciseList +

@@ -1310,7 +1310,17 @@ public class LoadData {
         a.setValue(25);
         approachList.add(a);
 
+        d = new Day();
+        d.setName("");
+        dayList.add(d);
+
+        d = new Day();
+        d.setName("");
+        dayList.add(d);
+
         App.getProgramService().persist(p);
+
+        App.getActiveProgramService().set(p, Calendar.getInstance().getTime(), true);
 
     }
 

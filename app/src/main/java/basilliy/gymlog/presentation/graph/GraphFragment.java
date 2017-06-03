@@ -24,7 +24,6 @@ import basilliy.gymlog.R;
 import basilliy.gymlog.application.App;
 import basilliy.gymlog.domain.entity.ExerciseResult;
 import basilliy.gymlog.presentation.navigation.FragmentOnRoot;
-import basilliy.gymlog.utils.D;
 
 
 public class GraphFragment extends FragmentOnRoot {
