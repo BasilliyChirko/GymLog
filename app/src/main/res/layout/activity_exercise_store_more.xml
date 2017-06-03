@@ -28,7 +28,16 @@
                     style="@style/AppTheme.ActionBarText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     tools:text="Name" />
+
+                <ImageView
+                    android:id="@id/done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingEnd="16dp"
+                    android:paddingLeft="16dp"
+                    android:src="@drawable/ic_done_white" />
 
             </LinearLayout>
         </android.support.v7.widget.Toolbar>

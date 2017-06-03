@@ -47,15 +47,31 @@ public class ExerciseStoreService {
     public ArrayList<String> getMuscleList() {
         ArrayList<String> list = new ArrayList<>();
 
-
-        RealmResults<ExerciseStore> stores = App.getRepository(clazz).findAll();
-
         m:
-        for (ExerciseStore store : stores) {
+        for (ExerciseStore store : App.getRepository(clazz).findAll()) {
             for (String muscle : list)
                 if (store.getTargetMuscle().equals(muscle))
                     continue m;
             list.add(store.getTargetMuscle());
+        }
+
+        return list;
+    }
+
+    public ArrayList<String> getInventoryList() {
+        ArrayList<String> list = new ArrayList<>();
+
+        for (ExerciseStore store : App.getRepository(clazz).findAll()) {
+            String inventory = store.getInventory();
+            if (!inventory.equals("-")) {
+                m:
+                for (String name : inventory.split(",")) {
+                    for (String s : list)
+                        if (s.equals(name.trim()))
+                            continue m;
+                    list.add(name.trim());
+                }
+            }
         }
 
         return list;

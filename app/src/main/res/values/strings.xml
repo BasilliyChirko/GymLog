@@ -38,6 +38,7 @@
     <string name="hard">Тяжело</string>
     <string name="normal">Нормально</string>
     <string name="easy">Легко</string>
+    <string name="level">Сложность</string>
 
     <string-array name="month_name">
         <item>Января</item>
@@ -52,5 +53,11 @@
         <item>Октября</item>
         <item>Ноября</item>
         <item>Декабря</item>
+    </string-array>
+
+    <string-array name="level">
+        <item>Простая</item>
+        <item>Средняя</item>
+        <item>Высокая</item>
     </string-array>
 </resources>

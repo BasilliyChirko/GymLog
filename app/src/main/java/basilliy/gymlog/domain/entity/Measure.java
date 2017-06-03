@@ -37,10 +37,7 @@ public class Measure extends RealmObject implements ID, Parcelable {
 
     @Override
     public String toString() {
-        return "Measure{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 
     public long getId() {

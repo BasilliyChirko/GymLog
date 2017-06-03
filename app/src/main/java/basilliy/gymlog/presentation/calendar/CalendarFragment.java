@@ -28,7 +28,7 @@ public class CalendarFragment extends FragmentOnRoot {
 
     public View initView(View v) {
         pager = (ViewPager) v.findViewById(R.id.pager);
-        CalendarPagerAdapter calendarPagerAdapter = new CalendarPagerAdapter(getFragmentManager());
+        CalendarPagerAdapter calendarPagerAdapter = new CalendarPagerAdapter(getChildFragmentManager());
         pager.setAdapter(calendarPagerAdapter);
         pager.setCurrentItem(calendarPagerAdapter.currentPosition, false);
 

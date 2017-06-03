@@ -13,6 +13,7 @@ import basilliy.gymlog.R;
 import basilliy.gymlog.domain.entity.Day;
 import basilliy.gymlog.domain.entity.Exercise;
 import basilliy.gymlog.domain.entity.ExerciseStore;
+import basilliy.gymlog.presentation.exerciseList.ExerciseStoreActivity;
 import basilliy.gymlog.presentation.utils.SecondActivity;
 import basilliy.gymlog.presentation.utils.RecyclerDragAndSwipe;
 

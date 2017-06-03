@@ -27,9 +27,6 @@ public class LoadData {
     public static void load() {
         SharedPreferences preferences = App.getPreferences();
 
-        // TODO: 02.06.2017 delete release
-        preferences.edit().putBoolean(Config.pref.firstLoad, true).apply();
-
         if (preferences.getBoolean(Config.pref.firstLoad, true)) {
             App.getRepository(Program.class).deleteAll();
             App.getRepository(Day.class).deleteAll();
@@ -1320,8 +1317,6 @@ public class LoadData {
 
         App.getProgramService().persist(p);
 
-        App.getActiveProgramService().set(p, Calendar.getInstance().getTime(), true);
-
     }
 
     private static void loadTestExerciseResult(){
@@ -1329,7 +1324,7 @@ public class LoadData {
         ExerciseResultService service = App.getExerciseResultService();
 
         long[] values = new long[] {
-          25, 27, 30, 35, 35, 35, 20, 24, 25, 30, 32, 25, 27, 30, 35, 35, 35, 20, 24, 25, 30, 32, 42
+          25, 25, 27, 27, 27, 27, 28, 30, 30, 31, 31, 31, 28, 25, 27, 27, 27, 28, 28, 30, 30, 30, 30, 33, 35, 35, 35, 37
         };
 
         Calendar calendar = Calendar.getInstance();
@@ -1341,7 +1336,7 @@ public class LoadData {
         }
 
         values = new long[] {
-                2, 3, 5, 1, 4
+                5, 5, 7, 7, 7, 7, 8, 10, 10, 11, 11, 11, 8, 5, 7, 7, 7, 8, 8, 10, 10, 10, 10, 13, 15, 15, 15, 17
         };
 
         calendar = Calendar.getInstance();
